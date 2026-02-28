@@ -1,4 +1,29 @@
 {
-  "$description": "Spacing-токены проекта. Заполнять по мере проработки.",
-  "scale": {}
+  "$description": "Spacing-токены и size tiers Planetа.",
+  "sizeTiers": {
+    "regular": {
+      "height": 44,
+      "paddingVertical": 10,
+      "paddingHorizontal": 20,
+      "font": { "family": "Inter", "weight": "Medium", "size": 14 },
+      "borderRadius": 12,
+      "spacing": 8
+    },
+    "small": {
+      "height": 36,
+      "paddingVertical": 10,
+      "paddingHorizontal": 16,
+      "font": { "family": "Inter", "weight": "Medium", "size": 12 },
+      "borderRadius": 12,
+      "spacing": 6
+    },
+    "little": {
+      "height": 28,
+      "paddingVertical": 6,
+      "paddingHorizontal": 12,
+      "font": { "family": "Inter", "weight": "Medium", "size": 12 },
+      "borderRadius": 8,
+      "spacing": 4
+    }
+  }
 }

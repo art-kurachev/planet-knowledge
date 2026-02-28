@@ -1,7 +1,23 @@
 {
-  "$description": "Типографические токены проекта. Заполнять по мере проработки.",
-  "fontFamily": {},
-  "fontSize": {},
-  "fontWeight": {},
-  "lineHeight": {}
+  "$description": "Типографические токены Planetа.",
+  "fontFamily": "Inter",
+  "weights": {
+    "regular": "Regular",
+    "medium": "Medium",
+    "semiBold": "Semi Bold"
+  },
+  "figmaFontLoad": [
+    { "family": "Inter", "style": "Regular" },
+    { "family": "Inter", "style": "Medium" },
+    { "family": "Inter", "style": "Semi Bold" }
+  ],
+  "usage": {
+    "body": { "family": "Inter", "weight": "Regular", "size": 16 },
+    "label": { "family": "Inter", "weight": "Medium", "size": 14 },
+    "labelSmall": { "family": "Inter", "weight": "Medium", "size": 12 },
+    "sectionHeader": { "family": "Inter", "weight": "Semi Bold", "size": 24 },
+    "pageTitle": { "family": "Inter", "weight": "Medium", "size": 36 },
+    "docTitle": { "family": "Inter", "weight": "Semi Bold", "size": 25 },
+    "changelog": { "family": "Inter", "weight": "Medium", "size": 16 }
+  }
 }
