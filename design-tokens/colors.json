@@ -1,0 +1,10 @@
+{
+  "$description": "Цветовые токены проекта. Заполнять по мере проработки.",
+  "primitive": {},
+  "semantic": {
+    "status": {},
+    "surface": {},
+    "text": {},
+    "border": {}
+  }
+}
