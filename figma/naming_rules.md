@@ -60,41 +60,103 @@
 | Bg/SidePageBg | `S:811b5afe791996e8492cafe7791083593fa3e3db,` |
 | Bg/TableSecBg | `S:c4f697643609a49d107d7e5660ab1badae1f80c2,` |
 
+## Правила использования стилей
+
+- **Никогда не хардкодить hex-значения** — только `setFillStyleIdAsync` / `setStrokeStyleIdAsync`
+- Для нейтральных рамок — `Stroke/LightStrokeColor`, для акцентных — `Primary/AccentBlue`
+- Все цвета берутся исключительно из таблицы выше
+
+## Правила отступов и размеров
+
+- Использовать только значения кратные 8: `8, 16, 24, 32, 40, 48, 56, 64`
+- При сомнении между `12` и `16` — выбирать `16`
+
 ## Changelog — формат записи
 
 - Горизонтальный фрейм, `primaryAxisSizingMode=FIXED`, ширина 802px, spacing 56
 - Дата: Inter Medium 16px, w=150, `textAutoResize=HEIGHT`, стиль `Text/SecText`
 - Описание: Inter Medium 16px, `textAutoResize=WIDTH_AND_HEIGHT`, стиль `Text/SecText`
-- Разделитель между записями: Rectangle 802×1px, fill `#e9edf4`
-- NODE-hyperlink на каждый упомянутый компонент: `setRangeHyperlink(start, end, { type: 'NODE', value: nodeId })`
+- NODE-hyperlink на название каждого компонента: `setRangeHyperlink(start, end, { type: 'NODE', value: nodeId })`
 - **НЕ менять визуальный стиль ссылки** — без подчёркивания, без смены цвета
+
+### Формат текста описания
+
+- Новый компонент: `Новый компонент — {ComponentName}`
+- Новое состояние: `Новое состояние компонента — {ComponentName}`
+- Несколько изменений одной даты — один блок, все через `\n`
 
 ### Правила добавления записей
 
-- **Новые записи добавляются в конец списка** (после последней существующей записи)
-- **Несколько изменений одной даты — один блок**, дата указывается один раз, все изменения в одном текстовом узле через `\n`
-- **Каждое упомянутое название компонента** должно иметь NODE-ссылку на соответствующий component set
+- **Новые записи добавляются в конец списка**
+- **Несколько изменений одной даты — один блок**, дата один раз, все изменения в одном текстовом узле через `\n`
+- **Каждое название компонента** — NODE-ссылка на соответствующий component set
 - Перед каждой новой записью — разделитель Rectangle 802×1px
+
+## Component Layout Format (раскладка компонентов на странице)
+
+Эталон: страница Tab (`254:208`). Структура строго воспроизводится для каждого нового компонента.
+
+### Структура фрейма страницы
+
+```
+Frame (имя компонента, белый фон, VERTICAL, gap=0, cornerRadius=24)
+├── Document (VERTICAL, padding 0/48/12/48, gap=10, белый фон)
+│   └── Logo bar (HORIZONTAL, AUTO/AUTO, fill Text/PrText, tl=0, tr=0, bl=12, br=12, padding 8/16/8/16)
+│       └── Text "Figma": Inter Semi Bold 25px, стиль Primary/White
+└── Component Container (VERTICAL, padding 40, gap=24, белый фон)
+    ├── Title: Inter Medium 56px, стиль Text/PrText
+    └── Content Row (HORIZONTAL, gap=16)
+        ├── Row Labels (VERTICAL, gap=31, paddingTop=80) — если есть строки
+        │   └── Row: {label} (текст 12px Regular, серый)
+        └── Grid Column (VERTICAL, gap=16)
+            ├── Column Headers (HORIZONTAL, paddingLeft/Right=40, gap между колонками)
+            │   └── Col: {state} (FIXED ширина = ширине варианта, CENTER/MAX, текст 12px Regular серый)
+            └── ComponentSet (stroke Primary/AccentBlue, dashPattern=[10,5], strokeWeight=1, fills=[])
+```
+
+### Правила раскладки
+
+- Внешний фрейм: `cornerRadius=24`
+- Logo bar: `primaryAxisSizingMode=AUTO`, `counterAxisSizingMode=AUTO` — размер по контенту, **не растягивать**
+- Grid Column: `gap=16` между Column Headers и ComponentSet
+- Подписи колонок — 12px Regular, серый, выровнены по центру и низу ячейки
+- ComponentSet: stroke `Primary/AccentBlue`, dashPattern `[10, 5]`, strokeWeight 1, fills пустые
+- Варианты внутри сета: отступы 40px по краям, gap 24px между вариантами
+
+### Правила внутри вариантов компонента
+
+- Отступы: только кратные 8 — `padding 16/16/16/16` по умолчанию
+- Gap между элементами: `8`
+- cornerRadius: `16`
+- Размер шрифта: `13px Medium` для основного текста, `13px Regular` для вспомогательного
+
+### Важно: не трогать то что настроено вручную
+
+Если дизайнер настроил параметры вручную в Figma — считать их эталоном, зафиксировать в правилах, **не перезаписывать**.
 
 ## Documentation Format (страницы компонентов)
 
 ### Структура фрейма (749px wide, border-radius 24px)
 
-1. **Logo bar**: Frame, fill `{r:0.18, g:0.2, b:0.27}`, bottomLeftRadius=12, bottomRightRadius=12, padding 8/16
-   - Text "Documentation": Inter Semi Bold 25px, стиль `Primary/White`
-2. **Header**: padding 32/0, spacing 16
-   - Title: Inter Medium 36px, стиль `Text/PrText`
-   - Description: Inter Regular 16px, стиль `Text/SecText`
-3. **Divider** (instance `159:3846`)
-4. **Content**: padding 32, body spacing 24
-   - Section header: Inter Semi Bold 24px, стиль `Text/PrText`
-   - Param name: Inter Regular 24px, стиль `Text/PrText`
-   - Param description: Inter Regular 16px, стиль `Text/SecText`
-   - Dividers между секциями
+1. **Document** (padding 0/32/0/32, gap=0)
+   - **Logo bar**: HORIZONTAL, AUTO/AUTO, fill `Text/PrText` (тёмный), tl=0, tr=0, bl=12, br=12, padding 8/16/8/16
+     - Text "Documentation": Inter Semi Bold 25px, стиль `Primary/White`
+   - **header**: VERTICAL, padding 32/0, gap=16
+     - Title: Inter Medium 36px, стиль `Text/PrText`, textAutoResize=HEIGHT
+     - Description: Inter Regular 16px, стиль `Text/SecText`, textAutoResize=HEIGHT
+   - **Divider** (instance `159:3846`)
+2. **Colors** (padding 32, gap=0)
+   - **Frame body** (VERTICAL, gap=24)
+     - Section header: Inter Semi Bold 24px, стиль `Text/PrText`
+     - **Frame param** (VERTICAL, gap=8): param name 24px Regular PrText + description 16px Regular SecText
+     - Divider instance между секциями
+     - **Frame rules** (VERTICAL, gap=8): текст 16px Regular SecText
+     - Divider instance
+     - **Frame styles** (VERTICAL, gap=8): текст 16px Regular SecText
 
 ### Обязательные секции
 
-- Параметры (описание каждого свойства компонента со значениями)
+- Параметры (описание каждого свойства со значениями)
 - Ключевые правила
 - Используемые стили
 
