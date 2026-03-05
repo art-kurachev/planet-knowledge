@@ -5,6 +5,7 @@ import {
   XAxis,
   YAxis,
   CartesianGrid,
+  ReferenceLine,
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
@@ -79,7 +80,10 @@ export const DailyChart: React.FC<DailyChartProps> = ({
               strokeDasharray="0"
               stroke={colors.stroke.subtle}
               vertical={false}
+              horizontalValues={[0]}
             />
+            <ReferenceLine y={250} stroke={colors.stroke.subtle} strokeDasharray="4 4" isFront={false} />
+            <ReferenceLine y={500} stroke={colors.stroke.subtle} strokeDasharray="4 4" isFront={false} />
             <XAxis
               dataKey="day"
               axisLine={false}

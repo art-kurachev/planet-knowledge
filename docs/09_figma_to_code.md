@@ -89,23 +89,45 @@ color: "#1A1D23"        // ← не совпадёт с Figma на 100%
 
 Причины:
 - Колонка добавляется в одном месте (`columns` массив)
-- Браузер сам выравнивает ширины по контенту (`table-layout: auto`)
+- Явный контроль ширин и выравнивания
 - Легко подключить данные с API через `.map()`
 
+### 5.1 Базовая структура
+
 ```jsx
-<table style={{ width:"100%", borderCollapse:"collapse", tableLayout:"auto" }}>
-  <colgroup>
-    <col /> {/* auto */}
-    <col style={{ width: 70 }} />
-  </colgroup>
+<table style={{ width:"100%", borderCollapse:"collapse", tableLayout:"fixed" }}>
   <thead>
-    <tr><th style={TH_STYLE}>Колонка</th></tr>
+    <tr>
+      <th style={{ ...styles.th, textAlign: 'left' }}>Название</th>
+      <th style={{ ...styles.th, width: 70, textAlign: 'right' }}>Число</th>
+    </tr>
   </thead>
   <tbody>
-    {rows.map(r => <tr key={r.id}><td style={TD_STYLE}>{r.value}</td></tr>)}
+    {rows.map(r => <tr key={r.id}>...</tr>)}
   </tbody>
 </table>
 ```
+
+### 5.2 Выравнивание заголовков (th)
+
+| Тип колонки | textAlign | Пример |
+|-------------|-----------|--------|
+| Первая колонка (название, проект, сотрудник) | `'left'` | Проект, Сотрудник |
+| Числовые колонки | `'right'` | Проходы, шт.; Отработано, ч. |
+| Бейджи, статусы | `'center'` | Дельта, ч. |
+
+Базовый `styles.th` может иметь `textAlign: 'center'` или `'right'`; переопределяй через spread: `{ ...styles.th, textAlign: 'left' }`.
+
+### 5.3 Ширины колонок (width, px)
+
+| Назначение | Ширина | Пример |
+|------------|--------|--------|
+| № (порядковый номер) | 16 | № |
+| Короткие числовые | 50–60 | План, ч.; Дельта; Перераб./Недораб. |
+| Числа с подписью | 70 | Проходы, шт.; Отработано, ч. |
+| Первая текстовая колонка | не задавать | flex/auto, занимает остаток |
+
+Используй `tableLayout: 'fixed'` — тогда `width` на `th` работает предсказуемо. В React inline-style число = px (`width: 70` → 70px).
 
 ---
 
@@ -182,6 +204,7 @@ rows.map(r => <tr key={r.id}>...)
 - [ ] Все цвета взяты из Figma как `rgb()`, не конвертированы вручную
 - [ ] Все `padding`, `gap`, `borderRadius`, `fontSize`, `fontWeight` точно из узлов
 - [ ] Таблицы на `<table>`, не на `div+grid`
+- [ ] Таблицы: первая колонка `textAlign: 'left'`, числовые — `'right'`, фиксированные ширины 50–70px для компактных колонок
 - [ ] `key` по `id`, не по индексу
 - [ ] Данные через props, мок отдельно внизу файла
 - [ ] Нет `height:100vh` + `overflow:hidden` на корне

@@ -53,7 +53,7 @@ export const SkudReport: React.FC = () => {
           />
         </div>
         <div className="skud-report-card-bottom">
-          <EmployeeDetail key={selectedEmployee.id} name={selectedEmployee.name} />
+          <EmployeeDetail key={selectedEmployee.id} name={selectedEmployee.name} projectName={selectedProject.name} />
         </div>
       </div>
     </div>

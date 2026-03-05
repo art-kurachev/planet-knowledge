@@ -572,7 +572,6 @@ const styles: Record<string, React.CSSProperties> = {
     alignItems: 'center',
     padding: '8px 12px',
     backgroundColor: colors.bg.elevated,
-    borderTop: `1px solid ${colors.stroke.subtle}`,
   },
   totalLabel: {
     fontSize: 10,
