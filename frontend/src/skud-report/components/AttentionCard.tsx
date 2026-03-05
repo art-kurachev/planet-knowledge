@@ -141,7 +141,7 @@ const styles: Record<string, React.CSSProperties> = {
     display: 'flex',
     alignItems: 'center',
     padding: '4px 8px',
-    height: 33,
+    height: 'fit-content',
     flexShrink: 0,
   },
   title: {

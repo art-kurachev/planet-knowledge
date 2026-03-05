@@ -346,10 +346,11 @@ const styles: Record<string, React.CSSProperties> = {
     minWidth: 0,
   },
   title: {
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: 400,
     color: colors.text.primary,
-    lineHeight: '24px',
+    lineHeight: 1.2,
+    width: '100%',
   },
   subtitle: {
     fontSize: 12,

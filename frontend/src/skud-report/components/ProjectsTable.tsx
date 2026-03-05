@@ -167,10 +167,10 @@ const styles: Record<string, React.CSSProperties> = {
     gap: 2,
   },
   title: {
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: 400,
     color: colors.text.primary,
-    lineHeight: '24px',
+    lineHeight: 1.2,
   },
   subtitle: {
     fontSize: 12,

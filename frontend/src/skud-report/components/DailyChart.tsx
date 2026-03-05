@@ -168,7 +168,7 @@ const styles: Record<string, React.CSSProperties> = {
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: '4px 8px',
-    height: 33,
+    height: 'fit-content',
   },
   title: {
     fontSize: 20,
@@ -181,6 +181,7 @@ const styles: Record<string, React.CSSProperties> = {
     fontWeight: 400,
     color: colors.text.secondary,
     lineHeight: '17px',
+    textAlign: 'right',
   },
   chartWrap: {
     flex: 1,

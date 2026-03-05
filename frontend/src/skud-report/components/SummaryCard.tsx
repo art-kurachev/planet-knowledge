@@ -146,6 +146,7 @@ const styles: Record<string, React.CSSProperties> = {
     fontWeight: 400,
     color: colors.text.secondary,
     lineHeight: '17px',
+    textAlign: 'right',
   },
   statsRow: {
     display: 'flex',
