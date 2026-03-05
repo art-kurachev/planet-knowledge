@@ -147,7 +147,7 @@ export const EmployeeDetail: React.FC<EmployeeDetailProps> = ({
           <span style={styles.title}>{name}</span>
           <span style={styles.subtitle}>{label}</span>
         </div>
-        <button style={styles.pdfBtn} onClick={onPdfClick}>
+        <button className="skud-pdf-btn" style={styles.pdfBtn} onClick={onPdfClick}>
           <DownloadIcon />
           <span style={styles.pdfLabel}>PDF</span>
         </button>
@@ -203,6 +203,7 @@ export const EmployeeDetail: React.FC<EmployeeDetailProps> = ({
               return (
                 <div
                   key={i}
+                  className="skud-timeline-day-row"
                   style={{
                     ...styles.timelineDayRow,
                     ...(isSelected ? styles.timelineDayRowSelected : {}),

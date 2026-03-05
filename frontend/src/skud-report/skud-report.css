@@ -52,6 +52,23 @@
   height: 100%;
 }
 
+.skud-pdf-btn:hover {
+  background-color: rgb(230, 232, 237) !important;
+}
+
+.skud-table-row:hover {
+  background-color: rgb(238, 243, 254) !important;
+}
+
+.skud-table-row:hover td:first-child {
+  border-left-color: transparent !important;
+}
+
+.skud-timeline-day-row:hover {
+  background-color: rgb(238, 243, 254) !important;
+  border-left-color: transparent !important;
+}
+
 /* Планшет: 1024px */
 @media (max-width: 1024px) {
   .skud-report-row-top,

@@ -48,7 +48,7 @@ const WarningIcon: React.FC = () => (
 
 const MOCK_ROWS: EmployeeRow[] = [
   { id: '1', num: 1, name: 'Иванов Пётр Сергеевич', worked: 100, plan: 100, delta: '+3', deltaColor: colors.status.success, deltaBg: colors.status.successBg },
-  { id: '2', num: 2, name: 'Герасимов Сергей Львович', worked: 100, plan: 100, delta: '-12 ч.', deltaColor: colors.status.error, deltaBg: colors.status.errorBg },
+  { id: '2', num: 2, name: 'Герасимов Сергей Львович', worked: 100, plan: 100, delta: '-12', deltaColor: colors.status.error, deltaBg: colors.status.errorBg },
   { id: '3', num: 3, name: 'Козлова Анна Михайловна', worked: 100, plan: 100, delta: '+3', deltaColor: colors.status.success, deltaBg: colors.status.successBg },
   { id: '4', num: 4, name: 'Махмудов Кобулбек Махмудович', worked: 100, plan: 100, delta: '+3', deltaColor: colors.status.success, deltaBg: colors.status.successBg, hasWarning: true },
   { id: '5', num: 5, name: 'Сидорова Елена Владимировна', worked: 100, plan: 100, delta: '+3', deltaColor: colors.status.success, deltaBg: colors.status.successBg },
@@ -92,7 +92,7 @@ export const EmployeesTable: React.FC<EmployeesTableProps> = ({
           <span style={styles.title}>{address}</span>
           <span style={styles.subtitle}>{subtitle}</span>
         </div>
-        <button style={styles.pdfBtn} onClick={onPdfClick}>
+        <button className="skud-pdf-btn" style={styles.pdfBtn} onClick={onPdfClick}>
           <DownloadIcon />
           <span style={styles.pdfLabel}>PDF</span>
         </button>
@@ -115,6 +115,7 @@ export const EmployeesTable: React.FC<EmployeesTableProps> = ({
               return (
                 <tr
                   key={row.id}
+                  className="skud-table-row"
                   onClick={() => handleClick(row)}
                   style={{
                     cursor: 'pointer',

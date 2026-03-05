@@ -75,6 +75,7 @@ export const ProjectsTable: React.FC<ProjectsTableProps> = ({
               return (
                 <tr
                   key={row.id}
+                  className="skud-table-row"
                   onClick={() => handleClick(row)}
                   style={{
                     cursor: 'pointer',
