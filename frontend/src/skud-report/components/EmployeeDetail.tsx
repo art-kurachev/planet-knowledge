@@ -29,6 +29,7 @@ interface TimelineEntry {
 
 interface EmployeeDetailProps {
   name?: string;
+  projectName?: string;
   label?: string;
   chartData?: DayHours[];
   chartDateRange?: string;
@@ -129,6 +130,7 @@ const CustomBarLabel: React.FC<{ x?: number; y?: number; width?: number; value?:
 
 export const EmployeeDetail: React.FC<EmployeeDetailProps> = ({
   name = 'Махмудов Кобулбек Махмудович',
+  projectName,
   label = 'Табель',
   chartData = MOCK_CHART,
   chartDateRange = '26 январь — 01 февраль',
@@ -152,10 +154,16 @@ export const EmployeeDetail: React.FC<EmployeeDetailProps> = ({
       </div>
 
       <div style={styles.chartSection}>
-        <div style={styles.chartContainer}>
+        <div style={styles.chartWrap}>
           <ResponsiveContainer width="100%" height={120}>
-            <BarChart data={chartData} barCategoryGap={16}>
-              <CartesianGrid strokeDasharray="0" stroke={colors.stroke.subtle} vertical={false} />
+            <BarChart data={chartData} barCategoryGap={16} margin={{ top: 16, right: 16, bottom: 0, left: 0 }}>
+              <CartesianGrid
+                strokeDasharray="0"
+                stroke={colors.stroke.subtle}
+                vertical={false}
+                horizontalValues={[0]}
+              />
+              <ReferenceLine y={4} stroke={colors.stroke.subtle} strokeDasharray="4 4" isFront={false} />
               <XAxis
                 dataKey="day"
                 axisLine={false}
@@ -163,7 +171,7 @@ export const EmployeeDetail: React.FC<EmployeeDetailProps> = ({
                 tick={{ fontSize: 9, fill: colors.text.muted, fontFamily: 'Inter, sans-serif' }}
                 interval={0}
               />
-              <YAxis hide />
+              <YAxis hide domain={[0, 10]} />
               <Bar dataKey="hours" radius={[4, 4, 0, 0]} label={<CustomBarLabel />}>
                 {chartData.map((entry, index) => (
                   <Cell
@@ -178,9 +186,8 @@ export const EmployeeDetail: React.FC<EmployeeDetailProps> = ({
           </ResponsiveContainer>
         </div>
         <div style={styles.chartLabel}>
-          <span style={styles.chartLabelText}>
-            Отработанные часы по дням {chartDateRange}
-          </span>
+          <span style={styles.chartLabelText}>Отработанные часы по дням</span>
+          <span style={styles.chartLabelDate}>{chartDateRange}</span>
         </div>
       </div>
 
@@ -231,9 +238,17 @@ export const EmployeeDetail: React.FC<EmployeeDetailProps> = ({
                   <span style={styles.chronoTitle}>
                     {selectedEntry.chronologyTitle ?? `Хронология — ${selectedEntry.date}`}
                   </span>
-                  {selectedEntry.chronologyLocation && (
-                    <span style={styles.chronoLocation}>{selectedEntry.chronologyLocation}</span>
-                  )}
+                  {(projectName || selectedEntry.chronologyLocation) && (() => {
+                    const checkpointName = selectedEntry.chronologyLocation?.split(' • ')[1];
+                    const complexName = projectName ?? selectedEntry.chronologyLocation?.split(' • ')[0];
+                    return (
+                      <span style={styles.chronoLocation}>
+                        {complexName && <span>{complexName}</span>}
+                        {complexName && checkpointName && <span> • </span>}
+                        {checkpointName && <span>{checkpointName}</span>}
+                      </span>
+                    );
+                  })()}
                 </div>
                 {selectedEntry.error && (
                   <div style={styles.errorBox}>
@@ -363,16 +378,30 @@ const styles: Record<string, React.CSSProperties> = {
     flexDirection: 'column',
     gap: 4,
   },
-  chartContainer: {
+  chartWrap: {
     height: 120,
+    backgroundColor: colors.bg.elevated,
+    borderRadius: 16,
+    padding: '0 8px 8px 0',
+    border: `1px solid ${colors.stroke.subtle}`,
   },
   chartLabel: {
-    textAlign: 'center',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    gap: 4,
   },
   chartLabelText: {
     fontSize: 10,
     fontWeight: 400,
     color: colors.text.muted,
+    lineHeight: '14px',
+  },
+  chartLabelDate: {
+    fontSize: 10,
+    fontWeight: 400,
+    color: colors.text.primary,
     lineHeight: '14px',
   },
   timelineSection: {
@@ -489,6 +518,7 @@ const styles: Record<string, React.CSSProperties> = {
     fontWeight: 400,
     color: colors.text.muted,
     lineHeight: '12px',
+    textAlign: 'right',
   },
   errorBox: {
     display: 'flex',
