@@ -122,7 +122,7 @@ const styles: Record<string, React.CSSProperties> = {
     height: '100%',
     backgroundColor: colors.bg.surface,
     borderRadius: 32,
-    border: `1px solid ${colors.stroke.subtle}`,
+    border: 'none',
     padding: '16px 16px 0 16px',
     display: 'flex',
     flexDirection: 'column',

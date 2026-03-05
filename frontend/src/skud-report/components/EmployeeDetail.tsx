@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   BarChart,
   Bar,
@@ -75,7 +75,7 @@ const MOCK_TIMELINE: TimelineEntry[] = [
   {
     date: 'Пн, 27 янв',
     hours: '7.2 ч',
-    chronologyTitle: 'Хронология — 29 фев',
+    chronologyTitle: 'Хронология — 27 янв',
     chronologyLocation: 'ЖК Заря • КПП Главный',
     error: 'Ошибка данных — выход не зафиксирован. Возможно сотрудник забыл приложить карту или пропуск не работает.',
     events: [
@@ -118,6 +118,9 @@ export const EmployeeDetail: React.FC<EmployeeDetailProps> = ({
   timeline = MOCK_TIMELINE,
   onPdfClick,
 }) => {
+  const [selectedDayIndex, setSelectedDayIndex] = useState(1);
+  const selectedEntry = timeline[selectedDayIndex];
+
   return (
     <div style={styles.card}>
       <div style={styles.header}>
@@ -165,76 +168,112 @@ export const EmployeeDetail: React.FC<EmployeeDetailProps> = ({
       </div>
 
       <div style={styles.timelineSection}>
-        <span style={styles.timelineTitle}>Таблица проходов по дням</span>
-        <div style={styles.timelineList}>
-          {timeline.map((entry, i) => (
-            <div key={i} style={styles.timelineRow}>
-              <div style={styles.timelineDateCol}>
-                <span style={styles.timelineDate}>{entry.date}</span>
-                {entry.hours && (
-                  <span style={styles.timelineHoursBadge}>{entry.hours}</span>
-                )}
-              </div>
-              {entry.chronologyTitle && (
-                <div style={styles.timelineDetailCol}>
-                  <div style={styles.chronoHeader}>
-                    <span style={styles.chronoTitle}>{entry.chronologyTitle}</span>
-                    <span style={styles.chronoLocation}>{entry.chronologyLocation}</span>
-                  </div>
-                  {entry.error && (
-                    <div style={styles.errorBox}>
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0 }}>
-                        <path
-                          d="M6.84 2.48L1.12 12a1.33 1.33 0 001.16 2h11.44a1.33 1.33 0 001.16-2L9.16 2.48a1.33 1.33 0 00-2.32 0z"
-                          fill={colors.status.warning}
-                          opacity="0.2"
-                        />
-                        <path
-                          d="M8 6v2.67M8 11.33h.007"
-                          stroke={colors.status.warning}
-                          strokeWidth="1.2"
-                          strokeLinecap="round"
-                        />
-                      </svg>
-                      <span style={styles.errorText}>{entry.error}</span>
-                    </div>
-                  )}
-                  {entry.events?.map((evt, j) => (
-                    <div key={j} style={styles.eventRow}>
-                      <span style={styles.eventTime}>{evt.time}</span>
-                      <span
-                        style={{
-                          ...styles.eventDirection,
-                          backgroundColor:
-                            evt.direction === 'in'
-                              ? colors.status.successBg
-                              : colors.status.errorBg,
-                          color:
-                            evt.direction === 'in'
-                              ? colors.status.success
-                              : colors.status.error,
-                        }}
-                      >
-                        {evt.direction === 'in' ? 'Вход' : 'Выход'}
-                      </span>
-                      {evt.direction === 'in' ? (
-                        <ArrowRight color={colors.text.muted} />
-                      ) : (
-                        <ArrowLeft color={colors.status.error} />
-                      )}
-                      <span style={styles.eventLocation}>{evt.location}</span>
-                    </div>
-                  ))}
-                  {entry.total && (
-                    <div style={styles.totalRow}>
-                      <span style={styles.totalLabel}>Итого за день</span>
-                      <span style={styles.totalValue}>{entry.total}</span>
-                    </div>
+        <div style={styles.timelineTableHeader}>
+          <span style={styles.timelineTableTitle}>Таблица проходов по дням</span>
+        </div>
+        <div style={styles.timelineTableBody}>
+          <div style={styles.timelineLeftCol}>
+            {timeline.map((entry, i) => {
+              const isSelected = selectedDayIndex === i;
+              const isAboveTarget = entry.hours && parseFloat(entry.hours) >= 8;
+              return (
+                <div
+                  key={i}
+                  style={{
+                    ...styles.timelineDayRow,
+                    ...(isSelected ? styles.timelineDayRowSelected : {}),
+                    ...(i === timeline.length - 1 ? { borderBottom: 'none' } : {}),
+                  }}
+                  onClick={() => setSelectedDayIndex(i)}
+                >
+                  <span style={{
+                    ...styles.timelineDayDate,
+                    ...(isSelected ? styles.timelineDayDateSelected : {}),
+                  }}>
+                    {entry.date}
+                  </span>
+                  {entry.hours ? (
+                    <span style={{
+                      ...styles.timelineHoursBadge,
+                      backgroundColor: isAboveTarget ? colors.status.successBg : colors.status.errorBg,
+                      color: isAboveTarget ? colors.status.success : colors.status.error,
+                    }}>
+                      {entry.hours}
+                    </span>
+                  ) : (
+                    <span style={styles.timelineHoursDash}>—</span>
                   )}
                 </div>
-              )}
-            </div>
-          ))}
+              );
+            })}
+          </div>
+          <div style={styles.timelineRightCol}>
+            {selectedEntry?.chronologyTitle && (
+              <div style={styles.chronoBlock}>
+                <div style={styles.chronoBlockHeader}>
+                  <span style={styles.chronoTitle}>{selectedEntry.chronologyTitle}</span>
+                  {selectedEntry.chronologyLocation && (
+                    <span style={styles.chronoLocation}>{selectedEntry.chronologyLocation}</span>
+                  )}
+                </div>
+                {selectedEntry.error && (
+                  <div style={styles.errorBox}>
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0 }}>
+                      <path
+                        d="M6.84 2.48L1.12 12a1.33 1.33 0 001.16 2h11.44a1.33 1.33 0 001.16-2L9.16 2.48a1.33 1.33 0 00-2.32 0z"
+                        fill={colors.status.warning}
+                        opacity="0.2"
+                      />
+                      <path
+                        d="M8 6v2.67M8 11.33h.007"
+                        stroke={colors.status.warning}
+                        strokeWidth="1.2"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                    <span style={styles.errorText}>{selectedEntry.error}</span>
+                  </div>
+                )}
+                {selectedEntry.events?.map((evt, j) => (
+                  <div key={j} style={styles.eventRow}>
+                    <span style={styles.eventTime}>{evt.time}</span>
+                    <span
+                      style={{
+                        ...styles.eventDirection,
+                        backgroundColor:
+                          evt.direction === 'in'
+                            ? colors.status.successBg
+                            : colors.status.errorBg,
+                        color:
+                          evt.direction === 'in'
+                            ? colors.status.success
+                            : colors.status.error,
+                      }}
+                    >
+                      {evt.direction === 'in' ? (
+                        <>
+                          Вход
+                          <ArrowRight color={colors.status.success} />
+                        </>
+                      ) : (
+                        <>
+                          <ArrowLeft color={colors.status.error} />
+                          Выход
+                        </>
+                      )}
+                    </span>
+                    <span style={styles.eventLocation}>{evt.location}</span>
+                  </div>
+                ))}
+                {selectedEntry.total && (
+                  <div style={styles.totalRow}>
+                    <span style={styles.totalLabel}>Итого за день</span>
+                    <span style={styles.totalValue}>{selectedEntry.total}</span>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
@@ -320,58 +359,100 @@ const styles: Record<string, React.CSSProperties> = {
   timelineSection: {
     flex: 1,
     minHeight: 0,
-    padding: '0 16px',
     display: 'flex',
     flexDirection: 'column',
-    gap: 8,
-    overflowY: 'auto',
+    overflow: 'hidden',
   },
-  timelineTitle: {
-    fontSize: 12,
-    fontWeight: 500,
-    color: colors.text.primary,
-    lineHeight: '15px',
-  },
-  timelineList: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 0,
-  },
-  timelineRow: {
-    display: 'flex',
-    gap: 8,
-    borderBottom: `1px solid ${colors.stroke.subtle}`,
-    padding: '6px 0',
-    minHeight: 28,
-  },
-  timelineDateCol: {
-    width: 100,
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 4,
+  timelineTableHeader: {
     flexShrink: 0,
+    backgroundColor: colors.bg.elevated,
+    borderBottom: `1px solid ${colors.stroke.subtle}`,
+    padding: '8px 12px 8px 44px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 2,
   },
-  timelineDate: {
+  timelineTableTitle: {
     fontSize: 10,
-    fontWeight: 400,
+    fontWeight: 450,
     color: colors.text.muted,
     lineHeight: '12px',
+  },
+  timelineTableBody: {
+    flex: 1,
+    minHeight: 0,
+    display: 'flex',
+    overflow: 'hidden',
+  },
+  timelineLeftCol: {
+    width: 144,
+    flexShrink: 0,
+    borderRight: `1px solid ${colors.stroke.subtle}`,
+    display: 'flex',
+    flexDirection: 'column',
+    overflowY: 'auto',
+  },
+  timelineDayRow: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: 12,
+    minHeight: 42,
+    borderBottom: `1px solid ${colors.stroke.subtle}`,
+    cursor: 'pointer',
+    boxSizing: 'border-box',
+  },
+  timelineDayRowSelected: {
+    backgroundColor: colors.primary.activeRow,
+    borderLeft: `4px solid ${colors.primary.default}`,
+  },
+  timelineDayDate: {
+    fontSize: 12,
+    fontWeight: 400,
+    color: colors.text.secondary,
+    lineHeight: '16px',
+    width: 70,
+  },
+  timelineDayDateSelected: {
+    fontWeight: 500,
+    color: colors.text.primary,
   },
   timelineHoursBadge: {
     fontSize: 10,
     fontWeight: 500,
-    color: colors.status.error,
-    backgroundColor: colors.status.errorBg,
-    padding: '2px 6px',
+    padding: '4px 8px',
     borderRadius: 4,
-    lineHeight: '12px',
-    alignSelf: 'flex-start',
+    lineHeight: '10px',
+    whiteSpace: 'nowrap',
   },
-  timelineDetailCol: {
+  timelineHoursDash: {
+    fontSize: 12,
+    color: colors.text.disabled,
+  },
+  timelineRightCol: {
     flex: 1,
+    minWidth: 0,
+    padding: 0,
+    overflowY: 'auto',
     display: 'flex',
     flexDirection: 'column',
-    gap: 6,
+  },
+  chronoBlock: {
+    flex: 1,
+    margin: 0,
+    backgroundColor: colors.bg.surface,
+    border: `1px solid ${colors.stroke.subtle}`,
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  chronoBlockHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '8px 12px',
+    backgroundColor: colors.bg.elevated,
+    borderBottom: `1px solid ${colors.stroke.subtle}`,
   },
   chronoHeader: {
     display: 'flex',
@@ -407,8 +488,8 @@ const styles: Record<string, React.CSSProperties> = {
   eventRow: {
     display: 'flex',
     alignItems: 'center',
-    gap: 8,
-    padding: '4px 0',
+    gap: 12,
+    padding: '8px 12px',
     borderBottom: `1px solid ${colors.stroke.subtle}`,
   },
   eventTime: {
@@ -419,23 +500,30 @@ const styles: Record<string, React.CSSProperties> = {
     width: 40,
   },
   eventDirection: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 4,
     fontSize: 10,
     fontWeight: 500,
-    padding: '2px 8px',
+    padding: '4px 8px',
     borderRadius: 4,
     lineHeight: '14px',
+    minWidth: 64,
+    justifyContent: 'center',
   },
   eventLocation: {
     fontSize: 12,
     fontWeight: 400,
-    color: colors.text.primary,
+    color: colors.text.muted,
     lineHeight: '15px',
   },
   totalRow: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: '6px 0',
+    padding: '8px 12px',
+    backgroundColor: colors.bg.elevated,
+    borderTop: `1px solid ${colors.stroke.subtle}`,
   },
   totalLabel: {
     fontSize: 10,
