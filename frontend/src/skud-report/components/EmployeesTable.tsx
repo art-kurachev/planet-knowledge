@@ -95,7 +95,7 @@ export const EmployeesTable: React.FC<EmployeesTableProps> = ({
             <tr>
               <th style={{ ...styles.th, width: 16 }}>№</th>
               <th style={{ ...styles.th, ...styles.thEmployee }}>Сотрудник</th>
-              <th style={{ ...styles.th, width: 80 }}>Отработано, ч.</th>
+              <th style={{ ...styles.th, width: 70 }}>Отработано, ч.</th>
               <th style={{ ...styles.th, width: 50 }}>План, ч.</th>
               <th style={{ ...styles.th, width: 50, ...styles.thDelta }}>Дельта, ч.</th>
             </tr>

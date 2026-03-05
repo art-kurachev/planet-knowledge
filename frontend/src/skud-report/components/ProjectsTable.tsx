@@ -63,10 +63,10 @@ export const ProjectsTable: React.FC<ProjectsTableProps> = ({
         <table style={styles.table}>
           <thead>
             <tr>
-              <th style={{ ...styles.th }}>Проект</th>
-              <th style={{ ...styles.th, width: 90, textAlign: 'right' }}>Проходы, шт.</th>
-              <th style={{ ...styles.th, width: 80 }}>Перераб., ч.</th>
-              <th style={{ ...styles.th, width: 80 }}>Недораб., ч.</th>
+              <th style={{ ...styles.th, textAlign: 'left' }}>Проект</th>
+              <th style={{ ...styles.th, width: 70, textAlign: 'right' }}>Проходы, шт.</th>
+              <th style={{ ...styles.th, width: 60 }}>Перераб., ч.</th>
+              <th style={{ ...styles.th, width: 60 }}>Недораб., ч.</th>
             </tr>
           </thead>
           <tbody>
