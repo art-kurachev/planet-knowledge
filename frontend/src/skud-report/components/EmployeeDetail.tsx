@@ -206,6 +206,7 @@ export const EmployeeDetail: React.FC<EmployeeDetailProps> = ({
                   style={{
                     ...styles.timelineDayRow,
                     ...(isSelected ? styles.timelineDayRowSelected : {}),
+                    ...(entry.error ? { backgroundColor: colors.status.warningBg } : {}),
                     ...(i === timeline.length - 1 ? { borderBottom: 'none' } : {}),
                   }}
                   onClick={() => setSelectedDayIndex(i)}
