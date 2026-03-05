@@ -156,7 +156,7 @@ export const EmployeeDetail: React.FC<EmployeeDetailProps> = ({
       <div style={styles.chartSection}>
         <div style={styles.chartWrap}>
           <ResponsiveContainer width="100%" height={120}>
-            <BarChart data={chartData} barCategoryGap={16} margin={{ top: 16, right: 16, bottom: 0, left: 0 }}>
+            <BarChart data={chartData} barCategoryGap={16} margin={{ top: 16, right: 0, bottom: 0, left: 0 }}>
               <CartesianGrid
                 strokeDasharray="0"
                 stroke={colors.stroke.subtle}
@@ -385,7 +385,7 @@ const styles: Record<string, React.CSSProperties> = {
     height: 120,
     backgroundColor: colors.bg.elevated,
     borderRadius: 16,
-    padding: '0 8px 8px 0',
+    padding: 0,
     border: `1px solid ${colors.stroke.subtle}`,
   },
   chartLabel: {
