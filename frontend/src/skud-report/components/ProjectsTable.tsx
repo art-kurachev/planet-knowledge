@@ -63,10 +63,10 @@ export const ProjectsTable: React.FC<ProjectsTableProps> = ({
         <table style={styles.table}>
           <thead>
             <tr>
-              <th style={{ ...styles.th, width: 351 }}>Проект</th>
-              <th style={{ ...styles.th, width: 70 }}>Проходы, шт.</th>
-              <th style={{ ...styles.th, width: 60 }}>Перераб., ч.</th>
-              <th style={{ ...styles.th, width: 60 }}>Недораб., ч.</th>
+              <th style={{ ...styles.th }}>Проект</th>
+              <th style={{ ...styles.th, width: 90, textAlign: 'right' }}>Проходы, шт.</th>
+              <th style={{ ...styles.th, width: 80 }}>Перераб., ч.</th>
+              <th style={{ ...styles.th, width: 80 }}>Недораб., ч.</th>
             </tr>
           </thead>
           <tbody>
@@ -103,7 +103,7 @@ export const ProjectsTable: React.FC<ProjectsTableProps> = ({
                       <span style={styles.projectName}>{row.name}</span>
                     </div>
                   </td>
-                  <td style={styles.td}>
+                  <td style={{ ...styles.td, textAlign: 'right' }}>
                     <span style={styles.cellText}>{row.passes}</span>
                   </td>
                   <td style={styles.td}>
@@ -186,12 +186,17 @@ const styles: Record<string, React.CSSProperties> = {
   tableWrap: {
     flex: 1,
     minHeight: 0,
+    overflowX: 'auto',
     overflowY: 'auto',
+    WebkitOverflowScrolling: 'touch',
+    position: 'relative',
+    transform: 'translateZ(0)',
   },
   table: {
     width: '100%',
+    minWidth: 320,
     borderCollapse: 'collapse',
-    tableLayout: 'auto',
+    tableLayout: 'fixed',
   },
   th: {
     position: 'sticky',
@@ -202,7 +207,7 @@ const styles: Record<string, React.CSSProperties> = {
     fontSize: 10,
     fontWeight: 450,
     color: colors.text.muted,
-    textAlign: 'left',
+    textAlign: 'center',
     lineHeight: '12px',
     whiteSpace: 'nowrap',
   },
@@ -211,7 +216,7 @@ const styles: Record<string, React.CSSProperties> = {
     verticalAlign: 'middle',
     height: 44,
     boxSizing: 'border-box',
-    textAlign: 'right',
+    textAlign: 'center',
   },
   projectCell: {
     display: 'flex',

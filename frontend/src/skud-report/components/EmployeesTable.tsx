@@ -94,10 +94,10 @@ export const EmployeesTable: React.FC<EmployeesTableProps> = ({
           <thead>
             <tr>
               <th style={{ ...styles.th, width: 16 }}>№</th>
-              <th style={{ ...styles.th }}>Проект</th>
+              <th style={{ ...styles.th, ...styles.thEmployee }}>Сотрудник</th>
               <th style={{ ...styles.th, width: 80 }}>Отработано, ч.</th>
               <th style={{ ...styles.th, width: 50 }}>План, ч.</th>
-              <th style={{ ...styles.th, width: 50 }}>Дельта, ч.</th>
+              <th style={{ ...styles.th, width: 50, ...styles.thDelta }}>Дельта, ч.</th>
             </tr>
           </thead>
           <tbody>
@@ -110,7 +110,7 @@ export const EmployeesTable: React.FC<EmployeesTableProps> = ({
                   onClick={() => handleClick(row.id)}
                   style={{
                     cursor: 'pointer',
-                    backgroundColor: isWarningRow && isActive
+                    backgroundColor: isWarningRow
                       ? colors.status.warningBg
                       : isActive
                       ? colors.primary.activeRow
@@ -122,13 +122,13 @@ export const EmployeesTable: React.FC<EmployeesTableProps> = ({
                     style={{
                       ...styles.td,
                       borderLeft: isActive
-                        ? `2px solid ${colors.primary.default}`
-                        : '2px solid transparent',
+                        ? `4px solid ${colors.primary.default}`
+                        : '4px solid transparent',
                     }}
                   >
                     <span style={styles.numText}>{row.num}</span>
                   </td>
-                  <td style={styles.td}>
+                  <td style={{ ...styles.td, ...styles.tdEmployee }}>
                     <div style={styles.nameCell}>
                       <span style={styles.nameText}>{row.name}</span>
                       {row.hasWarning && <WarningIcon />}
@@ -138,9 +138,9 @@ export const EmployeesTable: React.FC<EmployeesTableProps> = ({
                     <span style={styles.cellText}>{row.worked}</span>
                   </td>
                   <td style={styles.td}>
-                    <span style={styles.cellText}>{row.plan}</span>
+                    <span style={styles.planText}>{row.plan}</span>
                   </td>
-                  <td style={styles.td}>
+                  <td style={{ ...styles.td, ...styles.tdDelta }}>
                     <span
                       style={{
                         ...styles.deltaBadge,
@@ -222,12 +222,17 @@ const styles: Record<string, React.CSSProperties> = {
   tableWrap: {
     flex: 1,
     minHeight: 0,
+    overflowX: 'auto',
     overflowY: 'auto',
+    WebkitOverflowScrolling: 'touch',
+    position: 'relative',
+    transform: 'translateZ(0)',
   },
   table: {
     width: '100%',
+    minWidth: 320,
     borderCollapse: 'collapse',
-    tableLayout: 'auto',
+    tableLayout: 'fixed',
   },
   th: {
     position: 'sticky',
@@ -238,10 +243,12 @@ const styles: Record<string, React.CSSProperties> = {
     fontSize: 10,
     fontWeight: 450,
     color: colors.text.muted,
-    textAlign: 'left',
+    textAlign: 'right',
     lineHeight: '12px',
     whiteSpace: 'nowrap',
   },
+  thEmployee: { textAlign: 'left' },
+  thDelta: { textAlign: 'center' },
   td: {
     padding: '8px 12px',
     verticalAlign: 'middle',
@@ -249,6 +256,8 @@ const styles: Record<string, React.CSSProperties> = {
     boxSizing: 'border-box',
     textAlign: 'right',
   },
+  tdEmployee: { textAlign: 'left' },
+  tdDelta: { textAlign: 'center' },
   numText: {
     fontSize: 10,
     fontWeight: 450,
@@ -270,6 +279,12 @@ const styles: Record<string, React.CSSProperties> = {
     fontSize: 12,
     fontWeight: 400,
     color: colors.text.primary,
+    lineHeight: '16px',
+  },
+  planText: {
+    fontSize: 12,
+    fontWeight: 400,
+    color: colors.text.muted,
     lineHeight: '16px',
   },
   deltaBadge: {
