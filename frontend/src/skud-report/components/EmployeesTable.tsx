@@ -69,11 +69,11 @@ export const EmployeesTable: React.FC<EmployeesTableProps> = ({
   onRowClick,
   onPdfClick,
 }) => {
-  const [internalActiveId, setInternalActiveId] = useState('4');
-  const activeId = controlledActiveId ?? internalActiveId;
+  const [internalActiveId, setInternalActiveId] = useState<string | null>(null);
+  const activeId = controlledActiveId !== undefined ? controlledActiveId : internalActiveId;
 
   useEffect(() => {
-    if (controlledActiveId != null) {
+    if (controlledActiveId !== undefined) {
       setInternalActiveId(controlledActiveId);
     }
   }, [controlledActiveId]);
@@ -82,6 +82,8 @@ export const EmployeesTable: React.FC<EmployeesTableProps> = ({
     setInternalActiveId(row.id);
     onRowClick?.(row.id, row.name);
   };
+
+  const isActive = (id: string) => activeId != null && id === activeId;
 
   return (
     <div style={styles.card}>
@@ -108,7 +110,7 @@ export const EmployeesTable: React.FC<EmployeesTableProps> = ({
           </thead>
           <tbody>
             {rows.map((row) => {
-              const isActive = row.id === activeId;
+              const active = isActive(row.id);
               const isWarningRow = row.hasWarning;
               return (
                 <tr
@@ -118,7 +120,7 @@ export const EmployeesTable: React.FC<EmployeesTableProps> = ({
                     cursor: 'pointer',
                     backgroundColor: isWarningRow
                       ? colors.status.warningBg
-                      : isActive
+                      : active
                       ? colors.primary.activeRow
                       : 'transparent',
                     borderBottom: `1px solid ${colors.stroke.subtle}`,
@@ -127,7 +129,7 @@ export const EmployeesTable: React.FC<EmployeesTableProps> = ({
                   <td
                     style={{
                       ...styles.td,
-                      borderLeft: isActive
+                      borderLeft: active
                         ? `4px solid ${colors.primary.default}`
                         : '4px solid transparent',
                     }}

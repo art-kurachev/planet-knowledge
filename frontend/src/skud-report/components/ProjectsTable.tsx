@@ -42,8 +42,8 @@ export const ProjectsTable: React.FC<ProjectsTableProps> = ({
   activeId: controlledActiveId,
   onRowClick,
 }) => {
-  const [internalActiveId, setInternalActiveId] = useState('1');
-  const activeId = controlledActiveId ?? internalActiveId;
+  const [internalActiveId, setInternalActiveId] = useState<string | null>(null);
+  const activeId = controlledActiveId !== undefined ? controlledActiveId : internalActiveId;
 
   const handleClick = (row: ProjectRow) => {
     setInternalActiveId(row.id);
@@ -71,7 +71,7 @@ export const ProjectsTable: React.FC<ProjectsTableProps> = ({
           </thead>
           <tbody>
             {rows.map((row) => {
-              const isActive = row.id === activeId;
+              const isActive = activeId != null && row.id === activeId;
               return (
                 <tr
                   key={row.id}
