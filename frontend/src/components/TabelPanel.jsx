@@ -31,7 +31,7 @@ export function TabelPanel({ employee }) {
           flexShrink: 0,
         }}
       >
-        <span style={{ fontSize: 20, fontWeight: 400, color: C.prText, lineHeight: '24px' }}>
+        <span style={{ width: '100%', fontSize: 20, fontWeight: 400, color: C.prText, lineHeight: '24px', verticalAlign: 'middle' }}>
           {employee ? `Табель — ${employee.name}` : 'Табель — Махмудов Кобулбек Махмудович'}
         </span>
         <BtnPDF />
