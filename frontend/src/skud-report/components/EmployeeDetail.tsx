@@ -71,11 +71,19 @@ const MOCK_CHART: DayHours[] = [
 ];
 
 const MOCK_TIMELINE: TimelineEntry[] = [
-  { date: 'Вс, 26 янв', hours: '8.5 ч' },
+  {
+    date: 'Вс, 26 янв',
+    hours: '8.5 ч',
+    chronologyLocation: 'ЖК Заря • КПП Главный',
+    events: [
+      { time: '09:00', direction: 'in', location: 'КПП Главный' },
+      { time: '18:00', direction: 'out', location: 'КПП Главный' },
+    ],
+    total: '8 ч 30 мин',
+  },
   {
     date: 'Пн, 27 янв',
     hours: '7.2 ч',
-    chronologyTitle: 'Хронология — 27 янв',
     chronologyLocation: 'ЖК Заря • КПП Главный',
     error: 'Ошибка данных — выход не зафиксирован. Возможно сотрудник забыл приложить карту или пропуск не работает.',
     events: [
@@ -85,7 +93,16 @@ const MOCK_TIMELINE: TimelineEntry[] = [
     ],
     total: '7 ч 09 мин',
   },
-  { date: 'Вт, 28 янв', hours: '7.2 ч' },
+  {
+    date: 'Вт, 28 янв',
+    hours: '7.2 ч',
+    chronologyLocation: 'ЖК Заря • КПП Северный',
+    events: [
+      { time: '08:45', direction: 'in', location: 'КПП Северный' },
+      { time: '17:30', direction: 'out', location: 'КПП Северный' },
+    ],
+    total: '7 ч 12 мин',
+  },
   { date: 'Ср, 29 янв', hours: '7.2 ч' },
   { date: 'Чт, 30 янв', hours: '7.2 ч' },
   { date: 'Пт, 31 янв', hours: '7.2 ч' },
@@ -118,7 +135,7 @@ export const EmployeeDetail: React.FC<EmployeeDetailProps> = ({
   timeline = MOCK_TIMELINE,
   onPdfClick,
 }) => {
-  const [selectedDayIndex, setSelectedDayIndex] = useState(1);
+  const [selectedDayIndex, setSelectedDayIndex] = useState(0);
   const selectedEntry = timeline[selectedDayIndex];
 
   return (
@@ -208,10 +225,12 @@ export const EmployeeDetail: React.FC<EmployeeDetailProps> = ({
             })}
           </div>
           <div style={styles.timelineRightCol}>
-            {selectedEntry?.chronologyTitle && (
+            {selectedEntry && (
               <div style={styles.chronoBlock}>
                 <div style={styles.chronoBlockHeader}>
-                  <span style={styles.chronoTitle}>{selectedEntry.chronologyTitle}</span>
+                  <span style={styles.chronoTitle}>
+                    {selectedEntry.chronologyTitle ?? `Хронология — ${selectedEntry.date}`}
+                  </span>
                   {selectedEntry.chronologyLocation && (
                     <span style={styles.chronoLocation}>{selectedEntry.chronologyLocation}</span>
                   )}

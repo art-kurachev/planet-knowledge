@@ -14,6 +14,7 @@ interface AttentionItem {
 interface AttentionCardProps {
   title?: string;
   items?: AttentionItem[];
+  onItemClick?: (id: string, name: string) => void;
 }
 
 const MOCK_ITEMS: AttentionItem[] = [
@@ -69,6 +70,7 @@ const WarningIcon: React.FC = () => (
 export const AttentionCard: React.FC<AttentionCardProps> = ({
   title = 'Требует внимания',
   items = MOCK_ITEMS,
+  onItemClick,
 }) => {
   return (
     <div style={styles.card}>
@@ -77,7 +79,11 @@ export const AttentionCard: React.FC<AttentionCardProps> = ({
       </div>
       <div style={styles.list}>
         {items.map((item) => (
-          <div key={item.id} style={styles.row}>
+          <div
+            key={item.id}
+            style={{ ...styles.row, ...(onItemClick ? styles.rowClickable : {}) }}
+            onClick={() => onItemClick?.(item.id, item.name)}
+          >
             <div style={styles.projectInfo}>
               <div
                 style={{
@@ -163,6 +169,9 @@ const styles: Record<string, React.CSSProperties> = {
     backgroundColor: colors.bg.elevated,
     height: 44,
     boxSizing: 'border-box',
+  },
+  rowClickable: {
+    cursor: 'pointer',
   },
   projectInfo: {
     display: 'flex',

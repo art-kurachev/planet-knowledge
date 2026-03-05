@@ -16,7 +16,7 @@ interface ProjectsTableProps {
   dateRange?: string;
   rows?: ProjectRow[];
   activeId?: string;
-  onRowClick?: (id: string) => void;
+  onRowClick?: (id: string, name: string) => void;
 }
 
 const MOCK_ROWS: ProjectRow[] = [
@@ -45,9 +45,9 @@ export const ProjectsTable: React.FC<ProjectsTableProps> = ({
   const [internalActiveId, setInternalActiveId] = useState('1');
   const activeId = controlledActiveId ?? internalActiveId;
 
-  const handleClick = (id: string) => {
-    setInternalActiveId(id);
-    onRowClick?.(id);
+  const handleClick = (row: ProjectRow) => {
+    setInternalActiveId(row.id);
+    onRowClick?.(row.id, row.name);
   };
 
   return (
@@ -75,7 +75,7 @@ export const ProjectsTable: React.FC<ProjectsTableProps> = ({
               return (
                 <tr
                   key={row.id}
-                  onClick={() => handleClick(row.id)}
+                  onClick={() => handleClick(row)}
                   style={{
                     cursor: 'pointer',
                     backgroundColor: isActive
