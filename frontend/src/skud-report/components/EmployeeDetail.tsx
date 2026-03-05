@@ -491,7 +491,7 @@ const styles: Record<string, React.CSSProperties> = {
     flex: 1,
     margin: 0,
     backgroundColor: colors.bg.surface,
-    border: `1px solid ${colors.stroke.subtle}`,
+    border: 'none',
     display: 'flex',
     flexDirection: 'column',
   },

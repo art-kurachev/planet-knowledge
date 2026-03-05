@@ -194,7 +194,7 @@ const tooltipStyles: Record<string, React.CSSProperties> = {
   container: {
     backgroundColor: colors.text.primary,
     borderRadius: 8,
-    padding: '4px 8px',
+    padding: '8px 8px 2px 8px',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
