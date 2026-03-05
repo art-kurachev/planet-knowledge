@@ -2,6 +2,7 @@
 
 .skud-report-page {
   width: 100%;
+  max-width: 100%;
   height: 100%;
   min-height: 100vh;
   padding: 16px;
@@ -9,6 +10,7 @@
   flex-direction: column;
   gap: 8px;
   box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .skud-report-row-top {
@@ -18,15 +20,18 @@
   grid-auto-rows: 273px;
   gap: 8px;
   flex-shrink: 0;
+  min-width: 0;
 }
 
 .skud-report-row-bottom {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: minmax(0, 1fr);
+  grid-template-rows: minmax(500px, 1fr);
+  grid-auto-rows: minmax(500px, 1fr);
   gap: 8px;
   flex: 1;
   min-height: 0;
+  min-width: 0;
 }
 
 .skud-report-card-top {
@@ -45,7 +50,7 @@
 
 .skud-report-card-bottom {
   min-width: 0;
-  min-height: 0;
+  min-height: 500px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -69,15 +74,7 @@
   border-left-color: transparent !important;
 }
 
-/* Планшет: 1024px */
-@media (max-width: 1024px) {
-  .skud-report-row-top,
-  .skud-report-row-bottom {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-/* Планшет узкий: 768px */
+/* Мобильный: 768px — сразу 1 колонка (без промежуточных 2 колонок) */
 @media (max-width: 768px) {
   .skud-report-row-top,
   .skud-report-row-bottom {
