@@ -1,7 +1,0 @@
-export { Badge } from './Badge'
-export { Tag } from './Tag'
-export { HR } from './HR'
-export { VR } from './VR'
-export { BtnPDF } from './BtnPDF'
-export { IconDanger } from './IconDanger'
-export { IconArrow } from './IconArrow'

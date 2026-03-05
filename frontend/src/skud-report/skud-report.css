@@ -1,0 +1,67 @@
+/* SkudReport — адаптивный layout до планшета */
+
+.skud-report-page {
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-sizing: border-box;
+}
+
+.skud-report-row-top {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 273px;
+  grid-auto-rows: 273px;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.skud-report-row-bottom {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  flex: 1;
+  min-height: 0;
+}
+
+.skud-report-card-top {
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Сводка — по высоте контента, не растягивается */
+.skud-report-row-top > .skud-report-card-top:first-child {
+  align-items: flex-start;
+}
+
+.skud-report-card-bottom {
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Планшет: 1024px */
+@media (max-width: 1024px) {
+  .skud-report-row-top,
+  .skud-report-row-bottom {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Планшет узкий: 768px */
+@media (max-width: 768px) {
+  .skud-report-row-top,
+  .skud-report-row-bottom {
+    grid-template-columns: 1fr;
+  }
+}

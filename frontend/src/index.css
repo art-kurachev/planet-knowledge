@@ -1,4 +1,3 @@
-/* Full-height chain so layout fills viewport */
 html, body {
   height: 100%;
   margin: 0;
@@ -6,38 +5,5 @@ html, body {
 
 #root {
   height: 100%;
-}
-
-/* Layout: 3 равные колонки, адаптивно до ширины планшета */
-.skud-layout {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(240px, 1fr));
-  gap: 8px;
-  padding: 16px;
-  height: 100%;
-  min-height: 100vh;
-  box-sizing: border-box;
   overflow: hidden;
-}
-
-/* min-width: 0 позволяет колонкам сжиматься и контенту адаптироваться по ширине */
-.skud-layout > * {
-  min-width: 0;
-}
-
-@media (max-width: 900px) {
-  .skud-layout {
-    grid-template-columns: repeat(3, minmax(200px, 1fr));
-  }
-}
-
-@media (max-width: 768px) {
-  .skud-layout {
-    grid-template-columns: repeat(3, minmax(180px, 1fr));
-  }
-}
-
-/* Recharts Surface: allow overflow for labels/tooltips */
-.recharts-surface {
-  overflow: visible;
 }
