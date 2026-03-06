@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { colors } from '../tokens/colors';
+import { OverlayScrollArea } from '../OverlayScrollArea';
 
 interface EmployeeRow {
   id: string;
@@ -97,7 +98,7 @@ export const EmployeesTable: React.FC<EmployeesTableProps> = ({
           <span style={styles.pdfLabel}>PDF</span>
         </button>
       </div>
-      <div style={styles.tableWrap}>
+      <OverlayScrollArea style={styles.tableWrap}>
         <table style={styles.table}>
           <thead>
             <tr>
@@ -124,7 +125,7 @@ export const EmployeesTable: React.FC<EmployeesTableProps> = ({
                       : active
                       ? colors.primary.activeRow
                       : 'transparent',
-                    borderBottom: `1px solid ${colors.stroke.subtle}`,
+                    backgroundImage: `linear-gradient(to bottom, transparent calc(100% - 1px), ${colors.stroke.subtle} calc(100% - 1px))`,
                   }}
                 >
                   <td
@@ -165,7 +166,7 @@ export const EmployeesTable: React.FC<EmployeesTableProps> = ({
             })}
           </tbody>
         </table>
-      </div>
+      </OverlayScrollArea>
     </div>
   );
 };
@@ -261,6 +262,7 @@ const styles: Record<string, React.CSSProperties> = {
   td: {
     padding: '8px 12px',
     verticalAlign: 'middle',
+    minHeight: 44,
     height: 44,
     boxSizing: 'border-box',
     textAlign: 'right',

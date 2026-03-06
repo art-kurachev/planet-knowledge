@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { OverlayScrollArea } from '../OverlayScrollArea';
 import {
   BarChart,
   Bar,
@@ -61,15 +62,25 @@ const ArrowLeft: React.FC<{ color?: string }> = ({ color = colors.status.error }
   </svg>
 );
 
-const MOCK_CHART: DayHours[] = [
-  { day: 'Вс, 26 янв', hours: 5.5 },
-  { day: 'Пн, 27 янв', hours: 7.2 },
-  { day: 'Вт, 28 янв', hours: 8 },
-  { day: 'Ср, 29 янв', hours: 4, isOvertime: true },
-  { day: 'Чт, 30 янв', hours: 8 },
-  { day: 'Пт, 31 янв', hours: 9, isOvertime: true },
-  { day: 'Сб, 1 фев', hours: 0 },
-];
+function parseHoursFromTimeline(entry: TimelineEntry): number {
+  const str = entry.total || entry.hours || '';
+  if (!str.trim()) return 0;
+  const hm = str.match(/(\d+)\s*ч\s*(\d+)\s*мин/);
+  if (hm) return parseInt(hm[1], 10) + parseInt(hm[2], 10) / 60;
+  const h = str.match(/([\d.,]+)\s*ч/);
+  return h ? parseFloat(h[1].replace(',', '.')) : 0;
+}
+
+function timelineToChartData(timeline: TimelineEntry[]): DayHours[] {
+  return timeline.map((entry) => {
+    const hours = parseHoursFromTimeline(entry);
+    return {
+      day: entry.date,
+      hours,
+      isOvertime: hours < 8,
+    };
+  });
+}
 
 const MOCK_TIMELINE: TimelineEntry[] = [
   {
@@ -132,14 +143,14 @@ export const EmployeeDetail: React.FC<EmployeeDetailProps> = ({
   name = 'Махмудов Кобулбек Махмудович',
   projectName,
   label = 'Табель',
-  chartData = MOCK_CHART,
+  chartData: chartDataProp,
   chartDateRange = '26 январь — 01 февраль',
   timeline = MOCK_TIMELINE,
   onPdfClick,
 }) => {
   const [selectedDayIndex, setSelectedDayIndex] = useState(0);
   const selectedEntry = timeline[selectedDayIndex];
-
+  const chartData = chartDataProp ?? timelineToChartData(timeline);
   return (
     <div style={styles.card}>
       <div style={styles.header}>
@@ -196,7 +207,7 @@ export const EmployeeDetail: React.FC<EmployeeDetailProps> = ({
           <span style={styles.timelineTableTitle}>Таблица проходов по дням</span>
         </div>
         <div style={styles.timelineTableBody}>
-          <div style={styles.timelineLeftCol}>
+          <OverlayScrollArea style={styles.timelineLeftCol}>
             {timeline.map((entry, i) => {
               const isSelected = selectedDayIndex === i;
               const isAboveTarget = entry.hours && parseFloat(entry.hours) >= 8;
@@ -208,7 +219,7 @@ export const EmployeeDetail: React.FC<EmployeeDetailProps> = ({
                     ...styles.timelineDayRow,
                     ...(isSelected ? styles.timelineDayRowSelected : {}),
                     ...(entry.error ? { backgroundColor: colors.status.warningBg } : {}),
-                    ...(i === timeline.length - 1 ? { borderBottom: 'none' } : {}),
+                    ...(i === timeline.length - 1 ? { backgroundImage: 'none' } : {}),
                   }}
                   onClick={() => setSelectedDayIndex(i)}
                 >
@@ -232,8 +243,8 @@ export const EmployeeDetail: React.FC<EmployeeDetailProps> = ({
                 </div>
               );
             })}
-          </div>
-          <div style={styles.timelineRightCol}>
+          </OverlayScrollArea>
+          <OverlayScrollArea style={styles.timelineRightCol}>
             {selectedEntry && (
               <div style={styles.chronoBlock}>
                 <div style={styles.chronoBlockHeader}>
@@ -309,7 +320,7 @@ export const EmployeeDetail: React.FC<EmployeeDetailProps> = ({
                 )}
               </div>
             )}
-          </div>
+          </OverlayScrollArea>
         </div>
       </div>
     </div>
@@ -449,8 +460,8 @@ const styles: Record<string, React.CSSProperties> = {
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: 12,
-    minHeight: 42,
-    borderBottom: `1px solid ${colors.stroke.subtle}`,
+    minHeight: 44,
+    backgroundImage: `linear-gradient(to bottom, transparent calc(100% - 1px), ${colors.stroke.subtle} calc(100% - 1px))`,
     cursor: 'pointer',
     boxSizing: 'border-box',
   },

@@ -1,5 +1,6 @@
 import React from 'react';
 import { colors } from '../tokens/colors';
+import { OverlayScrollArea } from '../OverlayScrollArea';
 
 type BadgeType = 'shortage' | 'errors';
 
@@ -77,7 +78,8 @@ export const AttentionCard: React.FC<AttentionCardProps> = ({
       <div style={styles.header}>
         <span style={styles.title}>{title}</span>
       </div>
-      <div style={styles.list}>
+      <OverlayScrollArea style={styles.list}>
+        <div style={styles.listInner}>
         {items.map((item) => (
           <div
             key={item.id}
@@ -117,7 +119,8 @@ export const AttentionCard: React.FC<AttentionCardProps> = ({
             </div>
           </div>
         ))}
-      </div>
+        </div>
+      </OverlayScrollArea>
     </div>
   );
 };
@@ -153,12 +156,14 @@ const styles: Record<string, React.CSSProperties> = {
   list: {
     flex: 1,
     minHeight: 0,
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 4,
     borderRadius: 12,
     paddingBottom: 16,
     overflowY: 'auto',
+  },
+  listInner: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 4,
   },
   row: {
     display: 'flex',

@@ -1,3 +1,11 @@
+/* Скрыть стандартные скроллбары везде */
+* {
+  scrollbar-width: none;
+}
+*::-webkit-scrollbar {
+  display: none;
+}
+
 html, body {
   height: 100%;
   margin: 0;

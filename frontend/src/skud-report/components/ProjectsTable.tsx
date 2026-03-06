@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { colors } from '../tokens/colors';
+import { OverlayScrollArea } from '../OverlayScrollArea';
 
 interface ProjectRow {
   id: string;
@@ -59,7 +60,7 @@ export const ProjectsTable: React.FC<ProjectsTableProps> = ({
         </div>
         <span style={styles.dateRange}>{dateRange}</span>
       </div>
-      <div style={styles.tableWrap}>
+      <OverlayScrollArea style={styles.tableWrap}>
         <table style={styles.table}>
           <thead>
             <tr>
@@ -82,7 +83,7 @@ export const ProjectsTable: React.FC<ProjectsTableProps> = ({
                     backgroundColor: isActive
                       ? colors.primary.activeRow
                       : 'transparent',
-                    borderBottom: `1px solid ${colors.stroke.subtle}`,
+                    backgroundImage: `linear-gradient(to bottom, transparent calc(100% - 1px), ${colors.stroke.subtle} calc(100% - 1px))`,
                   }}
                 >
                   <td
@@ -134,7 +135,7 @@ export const ProjectsTable: React.FC<ProjectsTableProps> = ({
             })}
           </tbody>
         </table>
-      </div>
+      </OverlayScrollArea>
     </div>
   );
 };
@@ -215,6 +216,7 @@ const styles: Record<string, React.CSSProperties> = {
   td: {
     padding: '8px 12px',
     verticalAlign: 'middle',
+    minHeight: 44,
     height: 44,
     boxSizing: 'border-box',
     textAlign: 'center',
