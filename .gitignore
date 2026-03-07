@@ -10,5 +10,6 @@ dist/
 # IDE / editor
 .DS_Store
 .claude/
+.cursor/
 *.swp
 *.swo
