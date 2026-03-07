@@ -164,9 +164,10 @@ export const EmployeeDetail: React.FC<EmployeeDetailProps> = ({
         </button>
       </div>
 
+      {/* @figma-lock-start — график, не синхронизировать */}
       <div style={styles.chartSection}>
         <div style={styles.chartWrap}>
-          <ResponsiveContainer width="100%" height={120}>
+          <ResponsiveContainer width="100%" height={147}>
             <BarChart data={chartData} barCategoryGap={16} margin={{ top: 16, right: 0, bottom: 0, left: 0 }}>
               <CartesianGrid
                 strokeDasharray="0"
@@ -201,6 +202,7 @@ export const EmployeeDetail: React.FC<EmployeeDetailProps> = ({
           <span style={styles.chartLabelDate}>{chartDateRange}</span>
         </div>
       </div>
+      {/* @figma-lock-end */}
 
       <div style={styles.timelineSection}>
         <div style={styles.timelineTableHeader}>
@@ -386,6 +388,7 @@ const styles: Record<string, React.CSSProperties> = {
     color: colors.text.primary,
     lineHeight: '16px',
   },
+  // @figma-lock-start — график, ручная правка высоты
   chartSection: {
     padding: '0 16px',
     display: 'flex',
@@ -393,7 +396,7 @@ const styles: Record<string, React.CSSProperties> = {
     gap: 4,
   },
   chartWrap: {
-    height: 120,
+    height: 147,
     backgroundColor: colors.bg.elevated,
     borderRadius: 16,
     padding: 0,
@@ -418,6 +421,7 @@ const styles: Record<string, React.CSSProperties> = {
     color: colors.text.primary,
     lineHeight: '14px',
   },
+  // @figma-lock-end
   timelineSection: {
     flex: 1,
     minHeight: 0,

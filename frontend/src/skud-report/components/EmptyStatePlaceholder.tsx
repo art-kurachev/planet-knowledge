@@ -77,6 +77,7 @@ const styles: Record<string, React.CSSProperties> = {
     gap: 16,
     padding: '40px 24px',
     backgroundColor: colors.bg.elevated,
+    flexShrink: 0,
   },
   iconWrapper: {
     display: 'flex',
