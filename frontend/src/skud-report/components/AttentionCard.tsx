@@ -1,7 +1,7 @@
 import React from 'react';
 import { colors } from '../tokens/colors';
 import { OverlayScrollArea } from '../OverlayScrollArea';
-import { WarningIcon12 } from './icons';
+import { DangerIcon12 } from './icons';
 import { MOCK_ATTENTION_ITEMS } from '../mocks';
 import type { AttentionItem } from '../mocks';
 
@@ -47,7 +47,7 @@ export const AttentionCard: React.FC<AttentionCardProps> = ({
                     : colors.status.warningBg,
               }}
             >
-              {item.badgeType === 'errors' && <WarningIcon12 />}
+              {item.badgeType === 'errors' && <DangerIcon12 />}
               <span
                 style={{
                   ...styles.badgeText,

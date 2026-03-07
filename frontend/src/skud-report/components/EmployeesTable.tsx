@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { colors } from '../tokens/colors';
 import { OverlayScrollArea } from '../OverlayScrollArea';
-import { WarningIcon16 } from './icons';
+import { DangerIcon16 } from './icons';
 import { PdfButton } from './shared';
 import { MOCK_EMPLOYEE_ROWS } from '../mocks';
 import type { EmployeeRow } from '../mocks';
@@ -91,7 +91,7 @@ export const EmployeesTable: React.FC<EmployeesTableProps> = ({
                   <td style={{ ...styles.td, ...styles.tdEmployee }}>
                     <div style={styles.nameCell}>
                       <span style={styles.nameText}>{row.name}</span>
-                      {row.hasWarning && <WarningIcon16 />}
+                      {row.hasWarning && <DangerIcon16 />}
                     </div>
                   </td>
                   <td style={styles.td}>

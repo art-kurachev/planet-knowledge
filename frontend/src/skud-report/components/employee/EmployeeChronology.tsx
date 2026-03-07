@@ -1,6 +1,6 @@
 import React from 'react';
 import { colors } from '../../tokens/colors';
-import { WarningIconFilled, ArrowRight, ArrowLeft } from '../icons';
+import { DangerIcon16, ArrowRight, ArrowLeft } from '../icons';
 import type { TimelineEntry } from '../../mocks';
 
 interface EmployeeChronologyProps {
@@ -28,7 +28,7 @@ export const EmployeeChronology: React.FC<EmployeeChronologyProps> = ({ entry, p
     </div>
     {entry.error && (
       <div style={styles.errorBox}>
-        <WarningIconFilled />
+        <DangerIcon16 />
         <span style={styles.errorText}>{entry.error}</span>
       </div>
     )}

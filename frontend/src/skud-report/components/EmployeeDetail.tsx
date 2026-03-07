@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { OverlayScrollArea } from '../OverlayScrollArea';
 import { colors } from '../tokens/colors';
 import { PdfButton } from './shared';
-import { WarningIconFilled, ArrowRight, ArrowLeft } from './icons';
+import { ArrowRight, ArrowLeft } from './icons';
 import { EmployeeChart } from './employee/EmployeeChart';
 import { EmployeeTimeline } from './employee/EmployeeTimeline';
 import { EmployeeChronology } from './employee/EmployeeChronology';
