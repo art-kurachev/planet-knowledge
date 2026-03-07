@@ -1,18 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { colors } from '../tokens/colors';
 import { OverlayScrollArea } from '../OverlayScrollArea';
-
-interface EmployeeRow {
-  id: string;
-  num: number;
-  name: string;
-  worked: number;
-  plan: number;
-  delta: string;
-  deltaColor?: string;
-  deltaBg?: string;
-  hasWarning?: boolean;
-}
+import { WarningIcon16 } from './icons';
+import { PdfButton } from './shared';
+import { MOCK_EMPLOYEE_ROWS } from '../mocks';
+import type { EmployeeRow } from '../mocks';
 
 interface EmployeesTableProps {
   address?: string;
@@ -23,49 +15,10 @@ interface EmployeesTableProps {
   onPdfClick?: () => void;
 }
 
-const DownloadIcon: React.FC = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-    <path
-      d="M2 10v2.667A1.333 1.333 0 003.333 14h9.334A1.333 1.333 0 0014 12.667V10M4.667 6.667L8 10l3.333-3.333M8 10V2"
-      stroke={colors.text.primary}
-      strokeWidth="1.2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
-const WarningIcon: React.FC = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-    <path
-      d="M6.84 2.48L1.12 12a1.33 1.33 0 001.16 2h11.44a1.33 1.33 0 001.16-2L9.16 2.48a1.33 1.33 0 00-2.32 0zM8 6v2.67M8 11.33h.007"
-      stroke={colors.status.warning}
-      strokeWidth="1"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
-const MOCK_ROWS: EmployeeRow[] = [
-  { id: '1', num: 1, name: 'Иванов Пётр Сергеевич', worked: 100, plan: 100, delta: '+3', deltaColor: colors.status.success, deltaBg: colors.status.successBg },
-  { id: '2', num: 2, name: 'Герасимов Сергей Львович', worked: 100, plan: 100, delta: '-12', deltaColor: colors.status.error, deltaBg: colors.status.errorBg },
-  { id: '3', num: 3, name: 'Козлова Анна Михайловна', worked: 100, plan: 100, delta: '+3', deltaColor: colors.status.success, deltaBg: colors.status.successBg },
-  { id: '4', num: 4, name: 'Махмудов Кобулбек Махмудович', worked: 100, plan: 100, delta: '+3', deltaColor: colors.status.success, deltaBg: colors.status.successBg, hasWarning: true },
-  { id: '5', num: 5, name: 'Сидорова Елена Владимировна', worked: 100, plan: 100, delta: '+3', deltaColor: colors.status.success, deltaBg: colors.status.successBg },
-  { id: '6', num: 6, name: 'Петров Алексей Николаевич', worked: 100, plan: 100, delta: '+3', deltaColor: colors.status.success, deltaBg: colors.status.successBg },
-  { id: '7', num: 7, name: 'Новикова Мария Игоревна', worked: 100, plan: 100, delta: '+3', deltaColor: colors.status.success, deltaBg: colors.status.successBg },
-  { id: '8', num: 8, name: 'Махмудов Кобулбек Махмудович', worked: 100, plan: 100, delta: '+3', deltaColor: colors.status.success, deltaBg: colors.status.successBg },
-  { id: '9', num: 9, name: 'Махмудов Кобулбек Махмудович', worked: 100, plan: 100, delta: '+3', deltaColor: colors.status.success, deltaBg: colors.status.successBg },
-  { id: '10', num: 10, name: 'Махмудов Кобулбек Махмудович', worked: 100, plan: 100, delta: '+3', deltaColor: colors.status.success, deltaBg: colors.status.successBg },
-  { id: '11', num: 11, name: 'Махмудов Кобулбек Махмудович', worked: 100, plan: 100, delta: '+3', deltaColor: colors.status.success, deltaBg: colors.status.successBg },
-  { id: '12', num: 12, name: 'Махмудов Кобулбек Махмудович', worked: 100, plan: 100, delta: '+3', deltaColor: colors.status.success, deltaBg: colors.status.successBg },
-];
-
 export const EmployeesTable: React.FC<EmployeesTableProps> = ({
   address = 'ул. Гагарина, д. 33, корп. 1 ЖК «Созвездие»',
   subtitle = 'Нажмите на сотрудника для деталей',
-  rows = MOCK_ROWS,
+  rows = MOCK_EMPLOYEE_ROWS,
   activeId: controlledActiveId,
   onRowClick,
   onPdfClick,
@@ -93,10 +46,7 @@ export const EmployeesTable: React.FC<EmployeesTableProps> = ({
           <span style={styles.title}>{address}</span>
           <span style={styles.subtitle}>{subtitle}</span>
         </div>
-        <button className="skud-pdf-btn" style={styles.pdfBtn} onClick={onPdfClick}>
-          <DownloadIcon />
-          <span style={styles.pdfLabel}>PDF</span>
-        </button>
+        <PdfButton onClick={onPdfClick} />
       </div>
       <OverlayScrollArea style={styles.tableWrap}>
         <table style={styles.table}>
@@ -141,7 +91,7 @@ export const EmployeesTable: React.FC<EmployeesTableProps> = ({
                   <td style={{ ...styles.td, ...styles.tdEmployee }}>
                     <div style={styles.nameCell}>
                       <span style={styles.nameText}>{row.name}</span>
-                      {row.hasWarning && <WarningIcon />}
+                      {row.hasWarning && <WarningIcon16 />}
                     </div>
                   </td>
                   <td style={styles.td}>
@@ -211,23 +161,6 @@ const styles: Record<string, React.CSSProperties> = {
     fontWeight: 400,
     color: colors.text.muted,
     lineHeight: '15px',
-  },
-  pdfBtn: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 4,
-    padding: '6px 12px',
-    borderRadius: 8,
-    border: `1px solid ${colors.stroke.default}`,
-    backgroundColor: colors.bg.surface,
-    cursor: 'pointer',
-    flexShrink: 0,
-  },
-  pdfLabel: {
-    fontSize: 12,
-    fontWeight: 500,
-    color: colors.text.primary,
-    lineHeight: '16px',
   },
   tableWrap: {
     flex: 1,

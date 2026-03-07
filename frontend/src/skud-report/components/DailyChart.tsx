@@ -10,28 +10,14 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import { colors } from '../tokens/colors';
-
-interface DayData {
-  day: string;
-  value: number;
-  isWeekend?: boolean;
-}
+import { MOCK_DAILY_DATA } from '../mocks';
+import type { DayData } from '../mocks';
 
 interface DailyChartProps {
   title?: string;
   dateRange?: string;
   data?: DayData[];
 }
-
-const MOCK_DATA: DayData[] = [
-  { day: 'пн', value: 350 },
-  { day: 'вт', value: 280 },
-  { day: 'ср', value: 320 },
-  { day: 'чт', value: 200 },
-  { day: 'пт', value: 250 },
-  { day: 'сб', value: 180, isWeekend: true },
-  { day: 'вс', value: 120, isWeekend: true },
-];
 
 const CustomTooltip: React.FC<{ active?: boolean; payload?: Array<{ value: number }> }> = ({ active, payload }) => {
   if (active && payload && payload.length) {
@@ -48,7 +34,7 @@ const CustomTooltip: React.FC<{ active?: boolean; payload?: Array<{ value: numbe
 export const DailyChart: React.FC<DailyChartProps> = ({
   title = 'Всего проходов по дням',
   dateRange = '26 янв — 01 фев',
-  data = MOCK_DATA,
+  data = MOCK_DAILY_DATA,
 }) => {
   return (
     <div style={styles.card}>

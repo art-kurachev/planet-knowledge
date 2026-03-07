@@ -5,4 +5,5 @@ export { DailyChart } from './components/DailyChart';
 export { ProjectsTable } from './components/ProjectsTable';
 export { EmployeesTable } from './components/EmployeesTable';
 export { EmployeeDetail } from './components/EmployeeDetail';
+export { EmptyStatePlaceholder } from './components/EmptyStatePlaceholder';
 export { SkudReport } from './SkudReport';

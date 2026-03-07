@@ -1,16 +1,9 @@
 import React from 'react';
 import { colors } from '../tokens/colors';
 import { OverlayScrollArea } from '../OverlayScrollArea';
-
-type BadgeType = 'shortage' | 'errors';
-
-interface AttentionItem {
-  id: string;
-  name: string;
-  avatarColor: string;
-  badgeType: BadgeType;
-  badgeText: string;
-}
+import { WarningIcon12 } from './icons';
+import { MOCK_ATTENTION_ITEMS } from '../mocks';
+import type { AttentionItem } from '../mocks';
 
 interface AttentionCardProps {
   title?: string;
@@ -18,59 +11,9 @@ interface AttentionCardProps {
   onItemClick?: (id: string, name: string) => void;
 }
 
-const MOCK_ITEMS: AttentionItem[] = [
-  {
-    id: '1',
-    name: 'ул. Гагарина, д. 33, корп. 1 ЖК «Созвездие»',
-    avatarColor: '#E8D5B7',
-    badgeType: 'shortage',
-    badgeText: '−42 ч. недоработка',
-  },
-  {
-    id: '2',
-    name: 'ЖК Северный',
-    avatarColor: '#C5D8E8',
-    badgeType: 'shortage',
-    badgeText: '−38 ч. недоработка',
-  },
-  {
-    id: '3',
-    name: 'ул. Ленина, д. 15 ЖК «Алые Паруса»',
-    avatarColor: '#D5C8E8',
-    badgeType: 'errors',
-    badgeText: '11 ошибок данных',
-  },
-  {
-    id: '4',
-    name: 'пр. Мира, д. 45 ЖК «Солнечный Город»',
-    avatarColor: '#C8E8D5',
-    badgeType: 'errors',
-    badgeText: '11 ошибок данных',
-  },
-  {
-    id: '5',
-    name: 'наб. Речная, д. 21 ЖК «Речной Квартал»',
-    avatarColor: '#E8C8C8',
-    badgeType: 'shortage',
-    badgeText: '−42 ч. недоработка',
-  },
-];
-
-const WarningIcon: React.FC = () => (
-  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-    <path
-      d="M5.13 1.86L.84 9a1 1 0 00.87 1.5h8.58a1 1 0 00.87-1.5L6.87 1.86a1 1 0 00-1.74 0zM6 4.5v2M6 8.5h.005"
-      stroke={colors.status.warning}
-      strokeWidth="1"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
 export const AttentionCard: React.FC<AttentionCardProps> = ({
   title = 'Требует внимания',
-  items = MOCK_ITEMS,
+  items = MOCK_ATTENTION_ITEMS,
   onItemClick,
 }) => {
   return (
@@ -104,7 +47,7 @@ export const AttentionCard: React.FC<AttentionCardProps> = ({
                     : colors.status.warningBg,
               }}
             >
-              {item.badgeType === 'errors' && <WarningIcon />}
+              {item.badgeType === 'errors' && <WarningIcon12 />}
               <span
                 style={{
                   ...styles.badgeText,
