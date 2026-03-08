@@ -62,14 +62,14 @@ export const ProjectsTable: React.FC<ProjectsTableProps> = ({
                       ? colors.primary.activeRow
                       : 'transparent',
                     backgroundImage: `linear-gradient(to bottom, transparent calc(100% - 1px), ${colors.stroke.subtle} calc(100% - 1px))`,
+                    boxShadow: isActive
+                      ? `inset 4px 0 0 0 ${colors.primary.default}`
+                      : 'none',
                   }}
                 >
                   <td
                     style={{
                       ...styles.td,
-                      borderLeft: isActive
-                        ? `3px solid ${colors.primary.default}`
-                        : '3px solid transparent',
                       paddingLeft: 10,
                     }}
                   >

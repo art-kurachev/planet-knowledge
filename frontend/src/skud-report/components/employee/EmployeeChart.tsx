@@ -85,7 +85,7 @@ const styles: Record<string, React.CSSProperties> = {
     gap: 4,
   },
   chartWrap: {
-    height: 147,
+    height: 140,
     backgroundColor: colors.bg.elevated,
     borderRadius: 16,
     padding: 0,

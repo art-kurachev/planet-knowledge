@@ -76,16 +76,12 @@ export const EmployeesTable: React.FC<EmployeesTableProps> = ({
                       ? colors.primary.activeRow
                       : 'transparent',
                     backgroundImage: `linear-gradient(to bottom, transparent calc(100% - 1px), ${colors.stroke.subtle} calc(100% - 1px))`,
+                    boxShadow: active
+                      ? `inset 4px 0 0 0 ${colors.primary.default}`
+                      : 'none',
                   }}
                 >
-                  <td
-                    style={{
-                      ...styles.td,
-                      borderLeft: active
-                        ? `4px solid ${colors.primary.default}`
-                        : '4px solid transparent',
-                    }}
-                  >
+                  <td style={styles.td}>
                     <span style={styles.numText}>{row.num}</span>
                   </td>
                   <td style={{ ...styles.td, ...styles.tdEmployee }}>

@@ -74,7 +74,7 @@ const styles: Record<string, React.CSSProperties> = {
   },
   timelineDayRowSelected: {
     backgroundColor: colors.primary.activeRow,
-    borderLeft: `4px solid ${colors.primary.default}`,
+    boxShadow: `inset 4px 0 0 0 ${colors.primary.default}`,
   },
   timelineDayDate: {
     fontSize: 12,
