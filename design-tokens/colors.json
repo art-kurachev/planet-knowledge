@@ -1,35 +1,36 @@
 {
-  "$description": "Цветовые токены Planetа. Style ID — идентификаторы для Figma API (setFillStyleIdAsync).",
+  "$description": "Цветовые токены Planet. Источник истины — Figma Variables (коллекция Colors). Этот файл содержит только Style ID для Figma API (setFillStyleIdAsync) — для legacy-компонентов. Для новых компонентов использовать Variables. Полная документация: docs/COLOR_TOKENS.md",
+  "$legacy": true,
   "text": {
-    "PrText": { "styleId": "S:2a84d9d3637c15800b7dfbcca788d1d9cc8b9018," },
-    "SecText": { "styleId": "S:5d5de820daae9148fe3fe1d1dfff66a78e871ecb," },
-    "DisPrText": { "styleId": "S:61b4d03caa004569c4edc3d4ceae7850b633db17," },
-    "DisSecText": { "styleId": "S:20ffc04f35acab08d42f98f2084820f2fae8cbcf," }
+    "PrText":    { "styleId": "S:2a84d9d3637c15800b7dfbcca788d1d9cc8b9018,", "variable": "text/primary" },
+    "SecText":   { "styleId": "S:5d5de820daae9148fe3fe1d1dfff66a78e871ecb,", "variable": "text/secondary" },
+    "DisPrText": { "styleId": "S:61b4d03caa004569c4edc3d4ceae7850b633db17,", "variable": "text/disabled" },
+    "DisSecText":{ "styleId": "S:20ffc04f35acab08d42f98f2084820f2fae8cbcf,", "variable": "text/disabledSecondary" }
   },
   "primary": {
-    "AccentBlue": { "styleId": "S:4dee286cc0aece7de5919041bf096bc45cb89ff2," },
-    "AccentHover": { "styleId": "S:9969d717720feeef16dae91e228a01d5bdec3753," },
-    "Accent60a": { "styleId": "S:56ad17f7b0911f04bbbf87dfc5b47b18c214aa5d," },
-    "Accent20a": { "styleId": "S:7430d392558e81852cbfce96c702bb72e2fa5fb9," },
-    "White": { "styleId": "S:848eb3b7ba3b597bf22174da648f18727475d373," }
+    "AccentBlue": { "styleId": "S:4dee286cc0aece7de5919041bf096bc45cb89ff2,", "variable": "primary/default" },
+    "AccentHover":{ "styleId": "S:9969d717720feeef16dae91e228a01d5bdec3753,", "variable": "primary/hover" },
+    "Accent60a":  { "styleId": "S:56ad17f7b0911f04bbbf87dfc5b47b18c214aa5d,", "variable": "primary/mutedStrong" },
+    "Accent20a":  { "styleId": "S:7430d392558e81852cbfce96c702bb72e2fa5fb9,", "variable": "primary/muted" },
+    "White":      { "styleId": "S:848eb3b7ba3b597bf22174da648f18727475d373,", "variable": "bg/surface или text/onPrimary (по контексту)" }
   },
   "secondary": {
-    "BlueGray": { "styleId": "S:009aab635cccc3c50f8b2466956d52e0901ba00f," },
-    "Red": { "styleId": "S:ad64fb99494db6a32d5cfab96099feb0863568dd," },
-    "Green": { "styleId": "S:9c8d34594ec70641591f2b67345eea85810dba62," },
-    "Yellow": { "styleId": "S:5565ff0e235cddbca16e7b6bee6dd7e48a1be502," },
-    "LightRed": { "styleId": "S:828371c4da984bba5cff7fb5e0c8ea8e539efd8e," },
-    "LightGreen": { "styleId": "S:a745662df74085b66f470c28c574a3ca3f3d24cc," },
-    "LightYellow": { "styleId": "S:2b0aea29902145c2d36d444e2c107e0cc9b386f8," },
-    "LightBlue": { "styleId": "S:0d0741fcb2b9ab6fbf5255c1ab393d544c1f1245," }
+    "BlueGray":     { "styleId": "S:009aab635cccc3c50f8b2466956d52e0901ba00f,", "variable": "neutral/muted" },
+    "Red":          { "styleId": "S:ad64fb99494db6a32d5cfab96099feb0863568dd,", "variable": "status/error" },
+    "Green":        { "styleId": "S:9c8d34594ec70641591f2b67345eea85810dba62,", "variable": "status/success" },
+    "Yellow":       { "styleId": "S:5565ff0e235cddbca16e7b6bee6dd7e48a1be502,", "variable": "status/warning" },
+    "LightRed":     { "styleId": "S:828371c4da984bba5cff7fb5e0c8ea8e539efd8e,", "variable": "status/errorBg" },
+    "LightGreen":   { "styleId": "S:a745662df74085b66f470c28c574a3ca3f3d24cc,", "variable": "status/successBg" },
+    "LightYellow":  { "styleId": "S:2b0aea29902145c2d36d444e2c107e0cc9b386f8,", "variable": "status/warningBg" },
+    "LightBlue":    { "styleId": "S:0d0741fcb2b9ab6fbf5255c1ab393d544c1f1245,", "variable": "accent/blueBg" }
   },
   "stroke": {
-    "LightStrokeColor": { "styleId": "S:5980f7a8b5842cc49ff754cfbbaf5445a7085279," },
-    "StrongStrokeColor": { "styleId": "S:5e67bd2004262215b228873d3783ba9a59ba914c," }
+    "LightStrokeColor":  { "styleId": "S:5980f7a8b5842cc49ff754cfbbaf5445a7085279,", "variable": "stroke/subtle" },
+    "StrongStrokeColor": { "styleId": "S:5e67bd2004262215b228873d3783ba9a59ba914c,", "variable": "stroke/default" }
   },
   "bg": {
-    "InputBg": { "styleId": "S:cddf634b99db8b0da4678d0b8b13cd51918595ac," },
-    "SidePageBg": { "styleId": "S:811b5afe791996e8492cafe7791083593fa3e3db," },
-    "TableSecBg": { "styleId": "S:c4f697643609a49d107d7e5660ab1badae1f80c2," }
+    "InputBg":    { "styleId": "S:cddf634b99db8b0da4678d0b8b13cd51918595ac,", "variable": "bg/input" },
+    "SidePageBg": { "styleId": "S:811b5afe791996e8492cafe7791083593fa3e3db,", "variable": "bg/page" },
+    "TableSecBg": { "styleId": "S:c4f697643609a49d107d7e5660ab1badae1f80c2,", "variable": "bg/elevated" }
   }
 }
