@@ -17,11 +17,10 @@
   06_flows.md                 — пользовательские сценарии
   07_decisions_log.md         — лог дизайн-решений
   08_constraints.md           — технические и дизайн-ограничения
-  09_figma_to_code.md         — как читать Figma и переводить в код
-  09_frontend_rules.md        — правила структуры компонентов и файлов
-  09_components_backlog.md    — реестр компонентов в работе
-  10_coding_workflow.md       — процесс вёрстки: от Figma до PR
-  11_figma_variable_binding.md — привязка Variables к макетам в Figma
+  09_frontend_rules.md        — правила вёрстки: структура файлов, чтение Figma, компоненты
+  10_components_backlog.md    — реестр компонентов в работе
+  11_coding_workflow.md       — процесс верстки: от Figma до PR
+  12_figma_variable_binding.md — привязка Variables к макетам в Figma
   COLOR_TOKENS.md             — единственный источник цветов (Variables + Styles)
 
 /design-tokens
@@ -73,8 +72,7 @@ docs/09_frontend_rules.md
 
 **По необходимости:**
 ```
-docs/09_figma_to_code.md
-docs/10_coding_workflow.md
+docs/11_coding_workflow.md
 figma/file_map.md  (Раздел 2 — Макеты страниц)
 figma/component_map.md
 ```
