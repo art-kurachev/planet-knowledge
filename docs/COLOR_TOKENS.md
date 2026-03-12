@@ -1,6 +1,6 @@
 # Color Tokens — единственный источник цветов
 
-> **Правило для агента:** Все цвета берутся только отсюда.
+> **Правило для агента:**
 > - В Figma → использовать Variable из коллекции `Colors` по имени токена
 > - В коде → использовать ключ из `tokens/colors.ts` (импорт, не хардкод)
 > - Встретил цвет которого нет в этом файле → создай токен, сообщи пользователю
@@ -11,52 +11,52 @@
 
 **Файл:** `5YV3wQjobtEYjH3blUEmOr`  
 **Коллекция:** `VariableCollectionId:3232:4116`  
-**Моды:** `Light` (3232:2) / `Dark` (3232:3)
+**Режимы:** `Light` (3232:2) / `Dark` (3232:3)
 
-> Dark mode — в разработке. Токены уже созданы, используются при привязке Variables.
+> Dark mode — в разработке. Токены созданы, значения активны.
 
 ### Полная таблица токенов
 
-| Токен | Роль | VariableID |
-|-------|------|------------|
-| `text/primary` | Основной текст | VariableID:3232:4117 |
-| `text/secondary` | Вторичный / подписи | VariableID:3232:4118 |
-| `text/disabled` | Disabled основной | VariableID:3232:4119 |
-| `text/disabledSecondary` | Disabled вторичный | VariableID:3232:4120 |
-| `text/onPrimary` | Текст на акценте (кнопка, лого-бар) | VariableID:3232:4121 |
-| `bg/surface` | Карточки, модалки, панели | VariableID:3232:4122 |
-| `bg/page` | Фон страницы | VariableID:3232:4123 |
-| `bg/input` | Фон полей ввода | VariableID:3232:4124 |
-| `bg/elevated` | Таблица, дропдаун | VariableID:3232:4125 |
-| `stroke/subtle` | Слабая граница | VariableID:3232:4126 |
-| `stroke/default` | Стандартная граница | VariableID:3232:4127 |
-| `primary/default` | Акцентный синий | VariableID:3232:4128 |
-| `primary/hover` | Акцент hover | VariableID:3232:4129 |
-| `primary/muted` | Акцент фон (20%) | VariableID:3232:4130 |
-| `primary/mutedStrong` | Акцент (60%) | VariableID:3232:4131 |
-| `status/error` | Ошибка | VariableID:3232:4132 |
-| `status/errorHover` | Ошибка hover | VariableID:3232:4133 |
-| `status/errorBg` | Фон ошибки | VariableID:3232:4134 |
-| `status/errorBgStrong` | Фон ошибки насыщенный | VariableID:3232:4135 |
-| `status/success` | Успех | VariableID:3232:4136 |
-| `status/successBg` | Фон успеха | VariableID:3232:4137 |
-| `status/warning` | Предупреждение | VariableID:3232:4138 |
-| `status/warningBg` | Фон предупреждения | VariableID:3232:4139 |
-| `accent/blueBg` | Фон синего акцента | VariableID:3232:4140 |
-| `neutral/muted` | Нейтральный приглушённый | VariableID:3232:4141 |
-| `button/darkHover` | Hover outline кнопки | VariableID:3232:4142 |
+| Токен | Роль | VariableID | Light | Dark |
+|-------|------|------------|-------|------|
+| `text/primary` | Основной текст | VariableID:3232:4117 | `#2E3345` | `#F6F8FF` |
+| `text/secondary` | Вторичный / подписи | VariableID:3232:4118 | `#616F9E` | `#616F9E` |
+| `text/disabled` | Disabled основной | VariableID:3232:4119 | `#D5D6DA` | `#727DA6` |
+| `text/disabledSecondary` | Disabled вторичный | VariableID:3232:4120 | `#DFE2EC` | `#727DA6` |
+| `text/onPrimary` | Текст на акценте (кнопка, лого-бар) | VariableID:3232:4121 | `#FFFFFF` | `#FFFFFF` |
+| `bg/surface` | Карточки, модалки, панели | VariableID:3232:4122 | `#FFFFFF` | `#2D3243` |
+| `bg/page` | Фон страницы | VariableID:3232:4123 | `#EFF1F8` | `#1E212B` |
+| `bg/input` | Фон полей ввода | VariableID:3232:4124 | `#F4F6FA` | `#242836` |
+| `bg/elevated` | Таблица, дропдаун | VariableID:3232:4125 | `#F8FAFC` | `#292E3D` |
+| `stroke/subtle` | Слабая граница | VariableID:3232:4126 | `#E9EDF4` | `#3B4259` |
+| `stroke/default` | Стандартная граница | VariableID:3232:4127 | `#D4D7DB` | `#434B6A` |
+| `primary/default` | Акцент синий | VariableID:3232:4128 | `#4C87EC` | `#6788EC` |
+| `primary/hover` | Акцент hover | VariableID:3232:4129 | `#2765CF` | `#4B6CCD` |
+| `primary/muted` | Акцент фон (20%) | VariableID:3232:4130 | `#DBE7FB` | `#2C3560` |
+| `primary/mutedStrong` | Акцент (60%) | VariableID:3232:4131 | `#94B7F4` | `#4B6CCD` |
+| `status/error` | Ошибка | VariableID:3232:4132 | `#EB5757` | `#EB5757` |
+| `status/errorHover` | Ошибка hover | VariableID:3232:4133 | `#C74952` | `#C74952` |
+| `status/errorBg` | Фон ошибки | VariableID:3232:4134 | `#FDEFEF` | `#472B33` |
+| `status/errorBgStrong` | Фон ошибки насыщ. | VariableID:3232:4135 | `#FBDDDD` | `#472B33` |
+| `status/success` | Успех | VariableID:3232:4136 | `#27AE60` | `#27AE60` |
+| `status/successBg` | Фон успеха | VariableID:3232:4137 | `#EAF7F0` | `#153325` |
+| `status/warning` | Предупреждение | VariableID:3232:4138 | `#FFB22B` | `#FFB22B` |
+| `status/warningBg` | Фон предупреждения | VariableID:3232:4139 | `#FFF8EA` | `#3A2C14` |
+| `accent/blueBg` | Фон синего акцента | VariableID:3232:4140 | `#EEF3FE` | `#2C3560` |
+| `neutral/muted` | Нейтральный приглушённый | VariableID:3232:4141 | `#909ABB` | `#8E97B8` |
+| `button/darkHover` | Hover outline кнопки | VariableID:3232:4142 | `#1E212B` | `#1E212B` |
+
+> Источник: экспорт Variables из Figma (`Light.tokens.json` / `Dark.tokens.json`)
 
 ---
 
 ## Figma Styles — для Figma API (`setFillStyleIdAsync`)
 
-> Стили — старый механизм. Для новых компонентов использовать Variables.
-> Стили остаются для обратной совместимости и работы с legacy-компонентами.
+> Стили — старый механизм. Для новых компонентов использовать Variables.  
+> Стили остаются для обратной совместимости с legacy-компонентами.
 
-### Маппинг Style → Variable (по роли элемента)
-
-| Style Name | Style ID | Variable (предпочтительно) |
-|------------|----------|---------------------------|
+| Style Name | Style ID | Variable |
+|------------|----------|----------|
 | Text/PrText | `S:2a84d9d3637c15800b7dfbcca788d1d9cc8b9018,` | `text/primary` |
 | Text/SecText | `S:5d5de820daae9148fe3fe1d1dfff66a78e871ecb,` | `text/secondary` |
 | Text/DisPrText | `S:61b4d03caa004569c4edc3d4ceae7850b633db17,` | `text/disabled` |
@@ -84,14 +84,10 @@
 
 ## Фронтенд — `tokens/colors.ts`
 
-> Этот файл генерируется/синхронизируется вручную на основе Variables выше.
 > Агент НЕ хардкодит цвета в компонентах — только импортирует из этого файла.
 
 ```ts
 // tokens/colors.ts
-// Источник: Figma Variables, коллекция Colors, мод Light
-// Dark-значения применяются через CSS custom properties или context — не здесь
-
 export const colors = {
   text: {
     primary:           'var(--color-text-primary)',
@@ -113,14 +109,14 @@ export const colors = {
     mutedStrong: 'var(--color-primary-muted-strong)',
   },
   status: {
-    error:          'var(--color-status-error)',
-    errorHover:     'var(--color-status-error-hover)',
-    errorBg:        'var(--color-status-error-bg)',
-    errorBgStrong:  'var(--color-status-error-bg-strong)',
-    success:        'var(--color-status-success)',
-    successBg:      'var(--color-status-success-bg)',
-    warning:        'var(--color-status-warning)',
-    warningBg:      'var(--color-status-warning-bg)',
+    error:         'var(--color-status-error)',
+    errorHover:    'var(--color-status-error-hover)',
+    errorBg:       'var(--color-status-error-bg)',
+    errorBgStrong: 'var(--color-status-error-bg-strong)',
+    success:       'var(--color-status-success)',
+    successBg:     'var(--color-status-success-bg)',
+    warning:       'var(--color-status-warning)',
+    warningBg:     'var(--color-status-warning-bg)',
   },
   stroke: {
     subtle:  'var(--color-stroke-subtle)',
