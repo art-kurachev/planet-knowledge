@@ -1,14 +1,17 @@
 # Figma Naming Rules
 
-## Компоненты
+Правила именования, форматы Changelog и Component Layout.
+Актуально для работы в файле Design System (`5YV3wQjobtEYjH3blUEmOr`).
+
+---
+
+## Именование компонентов
 
 Формат: `{Type}{Style}{Size}`
 
 Примеры:
-- `BtnPrimaryRegular`
-- `BtnStrokeSmall`
-- `InputSmall`
-- `SelectGreySmall`
+- `BtnPrimaryRegular`, `BtnStrokeSmall`
+- `InputSmall`, `SelectGreySmall`
 
 ## Варианты (Properties)
 
@@ -16,47 +19,52 @@
 
 Примеры:
 - `Status=Default`, `Status=Hover`, `Status=Disabled`
-- `Icon=yes/no`
-- `Active=yes/no`
-- `Size=Regular/Small`
+- `Icon=yes/no`, `Active=yes/no`, `Size=Regular/Small`
 
-## Стили заливки (Figma Styles)
+---
 
-> Для новых компонентов использовать Variables, не стили.
-> Стили остаются для legacy-компонентов.
-> Полный список стилей и их маппинг на Variables — в `docs/COLOR_TOKENS.md`.
+## Правила цветов в Figma
 
-### Правила использования стилей
+- Никогда не хардкодить hex — только `setBoundVariableForPaint` (новые компоненты) или `setFillStyleIdAsync` (legacy)
+- Для нейтральных рамок — токен `stroke/subtle`
+- Для акцентных — токен `primary/default`
+- Иконки в табах — токен `neutral/muted` в обоих состояниях (active и inactive)
 
-- Никогда не хардкодить hex — только `setFillStyleIdAsync` (legacy) или `setBoundVariableForPaint` (новое)
-- Для нейтральных рамок — `Stroke/LightStrokeColor` / `stroke/subtle`
-- Для акцентных — `Primary/AccentBlue` / `primary/default`
+> Полная таблица токенов — `docs/COLOR_TOKENS.md`
 
-## Правила отступов и размеров
+---
 
-- Использовать только значения кратные 8: `8, 16, 24, 32, 40, 48, 56, 64`
-- При сомнении между `12` и `16` — выбирать `16`
+## Правила отступов
+
+- Только значения кратные 8: `8, 16, 24, 32, 40, 48, 56, 64`
+- При выборе между `12` и `16` — выбирать `16`
+
+---
 
 ## Changelog — формат записи
 
+Записи добавляются в контейнер `304:1445` (в конец).
+
+**Структура записи:**
 - Горизонтальный фрейм, `primaryAxisSizingMode=FIXED`, ширина 802px, spacing 56
 - Дата: Inter Medium 16px, w=150, `textAutoResize=HEIGHT`, стиль `Text/SecText`
 - Описание: Inter Medium 16px, `textAutoResize=WIDTH_AND_HEIGHT`, стиль `Text/SecText`
 - NODE-hyperlink на название каждого компонента: `setRangeHyperlink(start, end, { type: 'NODE', value: nodeId })`
 - Не менять визуальный стиль ссылки — без подчёркивания, без смены цвета
+- Перед каждой записью — разделитель Rectangle 802×1px
 
-### Формат текста описания
-
+**Формат текста описания:**
 - Новый компонент: `Новый компонент — {ComponentName}`
 - Новое состояние: `Новое состояние компонента — {ComponentName}`
 - Несколько изменений одной даты — один блок, все через `\n`
 
-### Правила добавления записей
-
-- Новые записи добавляются в конец списка
+**Правила добавления:**
+- Новые записи — в конец списка
 - Несколько изменений одной даты — один блок, дата один раз
 - Каждое название компонента — NODE-ссылка на соответствующий component set
-- Перед каждой новой записью — разделитель Rectangle 802×1px
+- После добавления — проверить высоту родителя `304:1205` (`clipsContent=true`)
+
+---
 
 ## Component Layout Format
 
@@ -83,24 +91,26 @@ Frame (имя компонента, bg/surface, VERTICAL, gap=0, cornerRadius=24
 ### Правила раскладки
 
 - Внешний фрейм: `cornerRadius=24`
-- Logo bar: `primaryAxisSizingMode=AUTO`, `counterAxisSizingMode=AUTO` — размер по контенту, не растягивать
+- Logo bar: `primaryAxisSizingMode=AUTO`, `counterAxisSizingMode=AUTO`
 - Grid Column: `gap=16` между Column Headers и ComponentSet
-- Подписи колонок — 12px Regular, токен `text/secondary`, выровнены по центру и низу
+- Подписи колонок: 12px Regular, `text/secondary`, выровнены по центру и низу
 - ComponentSet: stroke `primary/default`, dashPattern `[10, 5]`, strokeWeight 1, fills пустые
 - Варианты внутри сета: отступы 40px по краям, gap 24px между вариантами
 
-### Правила внутри вариантов компонента
+### Правила внутри вариантов
 
 - Отступы: кратные 8, `padding 16/16/16/16` по умолчанию
 - Gap между элементами: `8`
 - cornerRadius: `16`
-- Размер шрифта: `13px Medium` для основного текста, `13px Regular` для вспомогательного
+- Размер шрифта: `13px Medium` для основного, `13px Regular` для вспомогательного
 
-### Важно
+**Важно:** Если дизайнер настроил параметры вручную — считать их эталоном, не перезаписывать.
 
-Если дизайнер настроил параметры вручную в Figma — считать их эталоном, зафиксировать, **не перезаписывать**.
+---
 
 ## Documentation Format
+
+Для страниц документации компонента в DS-файле.
 
 ### Структура фрейма (749px wide, border-radius 24px)
 
@@ -126,5 +136,5 @@ Frame (имя компонента, bg/surface, VERTICAL, gap=0, cornerRadius=24
 
 ### Правило композиции
 
-Внутри нового компонента использовать только уже существующие компоненты DS.  
+Внутри нового компонента — использовать только существующие компоненты DS.
 Не создавать собственные примитивы если есть готовый аналог в библиотеке.
